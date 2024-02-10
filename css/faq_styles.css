@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    --transition: all 0.5s ease;
+    --color-hover: #DDA236;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+body{
+    background-color: #e6e8ed;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas: 
+    "sidebar header header header"
+    "sidebar main main main";
+    height: 100vh;
+}
+
+
+/* HEADER */
+.header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(27, 40, 65);
+    position: relative;
+    height: 70px;
+    background-color: #ffffff;
+    padding: 0 30px 0 30px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    transition: var(--transition);
+}
+
+
+.header .material-icons-outlined{
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+
+/* MAIN CONTAINER: FAQ */
+.main-container {
+    grid-area: main;
+    position: relative;
+    overflow-y: auto;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 20px;
+    transition: var(--transition);
+    z-index: 1;
+}
+
+
+
+.font-weight-bold{
+    font-weight: 600;
+}
+
+.main-title > p {
+    font-size: 20px;
+}
+
+
+.faq {
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    text-align: left; 
+    margin-top: 100px;
+}
+
+
+.faq-other,
+.error-section{
+    top: 40px;
+}
+
+.error-section select {
+    padding: 5px;
+}
+
+
+
+.faq-other{
+	position: relative;
+	left: 0px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+}
+.error-section {
+    margin-top: 60px;
+}
+
+label, select, textarea, button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.error-section button{
+    background: #333;
+    color: #fff;
+    outline: none;
+    padding: 12px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+.error-section button:hover,
+.faq-button:hover{
+    color: #dadada;
+}
+
+
+#error-description{
+    padding: 5px 5px;
+    
+}
+
+/* CSS for button */
+.faq-button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    transition: width var(--transition);
+}
+
+
+
+/* CSS for printing text */
+.printing-text {
+    margin: 10px 0; 
+}
+
+
+.SoftwareDevelopment-button{    
+    position: absolute;
+    top: 200px; 
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; 
+}
+
+
+.accordion {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.accordion:hover {
+    background-color: #555;
+}
+
+
+
+

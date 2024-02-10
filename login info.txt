@@ -1,0 +1,7 @@
+Employee Staff login details:
+tom@staff.makeitall.com
+Pw112233*
+
+Manager(Admin) Staff login details:
+mary@staff.makeitall.com
+Pw332211*
