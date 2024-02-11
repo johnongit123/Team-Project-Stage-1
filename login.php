@@ -1,18 +1,23 @@
 <?php
-session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // database parameters
-    $servername='localhost';
-    $username = "team20";
-    $password = "password";
-    $dbname='team20';
-    // Connection to sql database
-    $conn= new mysqli($servername, $username, $password, $dbname);
+<?php
+$servername = "localhost"; // Change this to your MySQL server address
+$username = "team20"; // Change this to your MySQL username
+$password = "password"; // Change this to your MySQL password
+$database = "Team20"; // Change this to the name of your MySQL database
 
-    // Check connection
-    if (!$conn-> connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+echo "Connected successfully";
+
+// Close connection
+$conn->close();
+?>
 
     // Retrieve values from the login form
 
