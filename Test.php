@@ -1,54 +1,40 @@
 <?php
-$servername = "Localhost"; // Change this to your MySQL server address
-$username = "team20"; // Change this to your MySQL username
-$password = "password"; // Change this to your MySQL password
-$database = "Team20"; // Change this to the name of your MySQL database
+// Establish a connection to your SQL database
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "database_name";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-echo "Connected successfully";
+// Execute query to fetch data
+$sql = "SELECT id, title, date, comments FROM threads";
+$result = $conn->query($sql);
 
-// Close connection
-$conn->close();
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->    
-</head>
-
-    <div class="top-bar">
-        <h1>
-            My Forum
-        </h1>
-    </div>
-    <div class="main">
-        <ol>  
-            <li class ="row">
-                <a href="/thread.html?id=${thread.id}">
-                    <h4 class = "title">
-                        ${thread.title} 
-                    </h4>
-                    <div class = "bottom">
-                        <p class = "timestamp">
-                            ${new Date(thread.date).toLocaleString()}
-                        </p>
-                        <p class="comment-count">
-                             _${thread.comments.length} comments
-                        </p>
+// Check if there are rows returned
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Generate HTML dynamically using fetched data
+        echo '<li class="row">
+                <a href="/thread.html?id=' . $row["id"] . '">
+                    <h4 class="title">' . $row["title"] . '</h4>
+                    <div class="bottom">
+                        <p class="timestamp">' . date("Y-m-d H:i:s", strtotime($row["date"])) . '</p>
+                        <p class="comment-count">' . count(json_decode($row["comments"])) . ' comments</p>
                     </div>
                 </a>
+              </li>';
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>
 
-        </ol>
-    </div>
-
-    <script>
