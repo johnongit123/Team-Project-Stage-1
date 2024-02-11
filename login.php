@@ -2,7 +2,7 @@
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // database parameters
-    $servername='34.142.15.155';
+    $servername='localhost';
     $username = "team20";
     $password = "password";
     $dbname='team20';
