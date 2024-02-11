@@ -1,4 +1,5 @@
 <?php
+echo"HELLO";
 // Establish a connection to your SQL database
 $servername = "localhost";
 $username = "team20";
