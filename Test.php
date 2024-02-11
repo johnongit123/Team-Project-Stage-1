@@ -12,7 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Hello";
+
 // Execute query to fetch data
 $sql = "SELECT id, title, date, comments FROM threads";
 $result = $conn->query($sql);
