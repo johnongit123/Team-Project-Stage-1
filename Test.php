@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Execute query to fetch data
-$sql = "SELECT id, title, date, comments FROM threads";
+$sql = "SELECT id, title, date, comments FROM Threads";
 $result = $conn->query($sql);
 
 // Check if there are rows returned
