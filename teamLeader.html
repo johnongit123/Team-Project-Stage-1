@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!--Montserrat font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <!--Material icons -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="grid-container">
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-icon" >
+            <span class="material-icons-outlined">menu</span>
+        </div>
+        <div class="header-left">
+            <span class="material-icons-outlined">search</span>
+        </div>
+        <div class="header-right">
+            <span class="material-icons-outlined">notifications</span>
+            <span class="material-icons-outlined">email</span>
+            <span class="material-icons-outlined">account_circle</span>
+        </div>
+    </header>
+     <!-- End Header -->
+
+
+     <!-- Sidebar -->
+     <aside id="sidebar">
+        <div class="sidebar-title">
+            <div class="sidebar-brand">
+                <span class="material-icons-outlined">inventory</span> Productivity
+            </div>
+        </div>
+        <ul class="sidebar-list">
+            <li class="sidebar-list-item" onclick="showDashboard()">
+                <a href="#"  >
+                    <span class="material-symbols-outlined">DASHBOARD</span>   Dashboard
+                </a>
+            </li>
+            <li class="sidebar-list-item" onclick="showMyTasks()">
+                <a href="#" >
+                    <span class="material-icons-outlined">task</span> My Tasks
+                </a>
+            </li>
+            <li class="sidebar-list-item" onclick="showProjectTasks()">
+                <a href="#" >
+                    <span class="material-icons-outlined">group_work</span> Project Tasks
+                </a>
+            </li>
+            <li class="sidebar-list-item" onclick="showTeamMembers()">
+                <a href="#">
+                    <span class="material-icons-outlined">group</span> Team 
+                </a>
+            </li>
+         
+        </ul>
+    </aside>
+    <!-- End Sidebar -->
+
+    <!--Main Dashboard-->
+    <main class="main-container" id="mainDashboard">
+        <div class="main-title">
+            <p class="font-weight-bold">PROJECT MANAGER DASHBOARD</p>
+        </div>
+
+
+        <div class="charts">
+
+            <div class="charts-card">
+                <p class="chart-title">Your UrgentTasks</p>
+                <div id="task-chart" class="task-chart">
+                    <div class="task-item">
+                        <span class="material-symbols-outlined">fiber_manual_record</span>
+                        <p>Task 1</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="task-item">
+                        <span class="material-symbols-outlined">fiber_manual_record</span>
+                        <p>Task 2</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="task-item">
+                        <span class="material-symbols-outlined">fiber_manual_record</span>
+                        <p>Task 3</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="charts-card">
+                <p class="chart-title">Upcoming Project Deadlines</p>
+                <div id="project-chart" class="project-chart">
+                    <div class="project-item">
+                        <span class="material-symbols-outlined">equalizer</span>
+                        <p>Project 1</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="project-item">
+                        <span class="material-symbols-outlined">equalizer</span>
+                        <p>Project 2</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="project-item">
+                        <span class="material-symbols-outlined">equalizer</span>
+                        <p>Project 3</p>
+                    </div>
+                </div>
+                
+            </div>
+   
+            
+
+            
+
+        </div>
+    </main>
+    <!--End main Dashboard-->
+
+    <!-- Start Of Projects Tasks Display -->
+
+        <div  id="projectTasksContent" style="display: none;">
+            <main class="main-container" >
+                <div class="main-title">
+                    <p class="font-weight-bold"></p>
+                </div>
+                
+                    <div class="charts-card">
+                        <div class="chart-header">
+                            <p class="chart-title">Project Tasks</p>
+                            <div class="assign-task-button">
+                                <button id="assign-task-button" class="assign-task-button">Assign Task</button>
+                            </div>
+                        </div>
+                        
+                        <div id="project-chart" class="project-chart">
+                            <div class="project-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 1</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="project-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 2</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="project-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 3</p>
+                            </div>
+                                                        <!-- Hidden modal/form HTML -->
+                            <div id="task-info-container" class="task-info-container" >
+                                <div class="task-info">
+                                    
+                                    <h2>Task Information</h2>
+                                    <p id="taskName">Task Name: <span></span></p>
+                                    <p id="taskAssignee">Assigned To: <span></span></p>
+                                    <p id="taskDueDate">Due Date: <span></span></p>
+                                </div>
+                            </div>
+  
+                            <div id="assign-form-container" class="assign-form-container">
+                                <div class="assign-form">
+                                    <h2>Assign Task</h2>
+                                    <form id="assign-form">
+                                        <input type="text" class="assign-input" placeholder="Task Name" required>
+                                        <input type="text" class="assign-input" placeholder="Task Description" required>
+                                        <input type="text" class="assign-input" placeholder="Team Member Name" required>
+                                        <input type="text" class="assign-input" placeholder="Team Member ID" required>
+                                        <input type="date" class="due-date-input" placeholder="Due Date" required> 
+                                        <button type="submit" class="assign-submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+            </main>
+        </div>
+        <!--End Of Projects Tasks Display-->
+
+        <!-- Start Of My Tasks Content Display -->
+            <div id="myTasksContent" style="display: none;">
+                <main class="main-container">
+                    <div class="main-title">
+                        <p class="font-weight-bold">Tasks</p>
+                    </div>
+                
+                    <div class="charts-card big-chart ">
+                        <div class="chart-header">
+                            <p class="chart-title">My Tasks</p>
+                            <div class="add-task-button">
+                                <button id="add-task-button" class="add-task-button">Add Task</button>
+                            </div>
+                        </div>
+                        <div id="task-chart" class="task-chart">
+                            <div class="task-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 1</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="task-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 2</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="task-item">
+                                <span class="material-symbols-outlined">fiber_manual_record</span>
+                                <p>Task 3</p>
+                            </div>
+                            <div id="task-form-container" class="task-form-container">
+                                <div class="task-form">
+                                    <h2>Add Task</h2>
+                                    <form id="task-form">
+                                        <input type="text" class="task-input" placeholder="Task Name" required>
+                                        <input type="text" class="task-input" placeholder="Task Description" required>
+                                        <input type="date" class="due-date-input" placeholder="Due Date" required> 
+                                        <button type="submit" class="task-submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        <!-- End Of My Tasks Content Display -->
+
+        <!-- Start of Team Member Content -->
+        <div id="teamMemberContent" style="display: none;">
+            <main class="main-container">
+                <div class="main-title">
+                    <p class="font-weight-bold">Team Members</p>
+                </div>
+                <div class="charts">
+                    <div class="charts-card">
+                        <p class="chart-title">Team Members</p>
+                        <div id="team-chart" class="team-members">
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="female3.jpeg" alt="Team Member 1">
+                                </div>
+                                <p class="team-member-name">Alice Malice</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="white.jpeg" alt="Team Member 2">
+                                </div>
+                                <p class="team-member-name">Bob Thorne</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="male3.jpeg" alt="Team Member 3">
+                                </div>
+                                <p class="team-member-name">Charlie Hold</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="male4.webp" alt="Team Member 1">
+                                </div>
+                                <p class="team-member-name">Jack Mason</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="male5.webp" alt="Team Member 2">
+                                </div>
+                                <p class="team-member-name">Sonny Hill</p>
+                            </div>
+                            <div class="team-member">
+                                <div class="team-member-avatar">
+                                    <img src="male2.webp" alt="Team Member 3">
+                                </div>
+                                <p class="team-member-name">Chris King</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- End Main Content -->
+    
+
+
+    <script src="script.js"></script>
+</body>
+</html>
