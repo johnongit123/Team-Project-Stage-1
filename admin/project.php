@@ -337,6 +337,7 @@ require_once 'remove_employee_from_project.php';
                             <div class="row align-items-start">
                                 <label for="select-project">Choose Project:</label>
                                 <select id="select-project" name="project_info">
+                                    <option value=""></option>
                                     <?php
                                         foreach ($projects as $index => $project) {
                                             echo "<option value='{$project['project_id']}' data-project-id='{$project['project_id']}' data-project-name='{$project['project_name']}' data-start-date='{$project['start_date']}' data-end-date='{$project['end_date']}' data-description='{$project['description']}'>#{$project['project_id']} - {$project['project_name']}</option>";
