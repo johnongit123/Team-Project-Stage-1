@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@100;300;400;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero{
+    width: 100%;
+    min-height:100vh;
+    background: rgb(21, 32, 51);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.hero h1{
+    color: #fff;
+    font-size: 45px;
+    font-weight:600;
+    margin-bottom: 40px; 
+}
+
+.signup-box{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width:90%;
+    max-width: 800px;
+    background: #dda236;
+}
+
+.left-box{
+    padding: 50px;
+    background: #dda236;
+    flex-basis: 50%;
+    flex-grow: 1;
+    color: #fff; 
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.left-box form label{
+    margin-left: 5px;
+}
+
+.right-box{
+    padding: 50px;
+    flex-basis: 50%;
+    flex-grow: 1;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-box{
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 15px 0;
+    border: none;
+    outline: none;
+    background: rgb(231, 231, 231);
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+::placeholder{
+    color:#000;
+}
+
+.left-box input{
+    color: #000;
+    width: (100% - 20px);
+}
+
+.input-box:focus{
+    background-color: rgb(201, 201, 201);
+}
+
+
+input[type=checkbox]{
+    margin-top: 30px;
+}
+
+.left-box label{
+    font-size: 14px;
+}
+
+.left-box button{
+    width: calc(100% - 20px);
+    background: #fff;
+    padding: 10px;
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-box button:hover{
+    font-weight: 500;
+    background-color: #000;
+    color: #fff
+}
+
+.left-box button span{
+    display: inline-block;
+    width: 0px;
+    overflow: hidden;
+    transition: width 0.5s;
+}
+
+.left-box button:hover span{
+    width: 30px;
+}
+
+.right-box .logo a{
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    min-width: 250px;
+    color: #fff;
+    font-size: 14px;
+    padding: 15px 30px;
+    text-decoration: none;
+}
+
+.right-box .logo{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.right-box .logo i{
+    font-size: 200px;
+    margin-right: 10px;
+    color: #dda236;
+    display: inline-block;
+}
+
+.form-error{
+    color: #aa1507;
+    font-size: 15px;
+}
