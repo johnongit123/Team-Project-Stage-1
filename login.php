@@ -1,8 +1,6 @@
 <?php
 require_once 'includes/session-config.php';
 require_once 'includes/login-inc.php';
-
-
 ?>
 
 
@@ -18,7 +16,7 @@ require_once 'includes/login-inc.php';
 <body>
 
 <div class="hero">
-    <h1> Login test </h1>
+    <h1> Login </h1>
     <div class = "signup-box">
         <div class="left-box">
             <form action="includes/login-inc.php" method="post">
