@@ -228,7 +228,7 @@ echo '</ol>
         var popup = document.getElementById('invite-popup');
         var inviteCodeInput = document.getElementById('invite-link-input');
         var inviteCode = generateInviteCode();
-        inviteCodeInput.value = "http://localhost:3000/Music/TeamProject/register.php?invitecode=" + inviteCode; //MATCH TO VIRTUALMACHINE
+        inviteCodeInput.value = "http://35.246.76.223/team-projects-part-2-team-20/register.php?invitecode=" + inviteCode; //MATCH TO VIRTUALMACHINE
         popup.style.display = 'block';
         shadow_effect.style.display = "flex";
     }
