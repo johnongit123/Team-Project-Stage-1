@@ -21,7 +21,7 @@ try {
             // Fetch data from the result object and display it
             while ($row = $result->fetch_assoc()) {
                 // Assuming 'employee' table has a column named 'name'
-                echo "Employee Name: " . $row['name'] . "<br>";
+                echo "Employee Name: " . $row['first_name'] . "<br>";
             }
         } else {
             echo "Error executing query: " . $con->error;
