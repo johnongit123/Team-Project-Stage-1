@@ -1,8 +1,7 @@
 <?php
-require_once 'includes/session-config.php';
+session_start();
 require_once 'includes/login-inc.php';
 ?>
-
 
 <!DOCTYPE html>
 <html>
