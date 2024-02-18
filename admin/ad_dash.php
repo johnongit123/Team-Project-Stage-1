@@ -58,13 +58,6 @@ check_login();
                 </a>
             </li>
             <li class="sidebar-list-item">
-                <a href="tasks.php">
-                    <span class="material-symbols-outlined">task</span>
-                    <span class="text">Tasks</span>
-                    <span class="tooltip">Tasks</span>
-                </a>
-            </li>
-            <li class="sidebar-list-item">
                 <a href="project.php">
                     <span class="material-symbols-outlined">monitoring</span>
                     <span class="text">Projects</span>
