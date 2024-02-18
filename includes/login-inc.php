@@ -30,24 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["login_incorrect"] = "Incorrect email or password, please try again!";
         }
 
-        $loginId = collect_login_id($email);
-
-        $login_id = validate_login($email, $pwd);
-        if ($login_id) {
-            $_SESSION['login_id'] = $login_id;
-            connect_user($email);
-            die();
-        } else{
-            $errors["login_incorrect"] = "Incorrect email or password, please try again!";
-        }
-
-
         //assigns error message to the session
         if (!empty($errors)){
             $_SESSION["errors_login"] = $errors;
             header("Location: ../login.php");
             die();
         }
+
+        $loginId = collect_login_id($email);
+        $newSessionId = session_create_id();
+        $sessionId = $newSessionId . "_". $loginId;
+        session_id($sessionId);
+
+        $_SESSION['login_id'] = $loginId;
+        
+        $_SESSION["last_regeneration"] = time();
+        connect_user($email);
+        die();    
     } catch(PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
