@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/session-config.php';
+require_once '../includes/login-inc.php';
 $memberID = $_SESSION["login_id"];
 require_once '../includes/dbh.php';
 ?>
