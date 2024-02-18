@@ -1,7 +1,6 @@
 <?php
 require_once '../includes/session-config.php';
-
-
+check_login();
 ?>
 
 <!DOCTYPE html>
