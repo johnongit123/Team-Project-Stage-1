@@ -36,16 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             header("Location: ../login.php");
             die();
         }
-
-        $loginId = collect_login_id($email);
-        $newSessionId = session_create_id();
-        $sessionId = $newSessionId . "_". $loginId;
-        session_id($sessionId);
-        $emp_id = get_empid();
-
-        $_SESSION['emp_id'] = $emp_id;
+      
         
-        $_SESSION["last_regeneration"] = time();
+        $emp_id = get_empid($email);
+        $_SESSION['emp_id'] = $emp_id;
         connect_user($email);
         die();    
     } catch(PDOException $e) {
