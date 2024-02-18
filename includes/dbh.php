@@ -13,7 +13,10 @@ try {
     if (!$con){
         throw new Exception("Connection failed: " . mysqli_connect_error());
     } else{
-          echo "we connected!";
+        echo "we connected!";
+        $query = "SELECT * from employee";
+        $result = $con->query($staff_query);
+        echo $result;
     }
 } catch(Exception $e) {
     // Connection failed, handle the exception
