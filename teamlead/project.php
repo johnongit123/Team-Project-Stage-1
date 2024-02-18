@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/session-config.php';
-check_login();
+$memberID = check_login();
 require_once '../includes/dbh.php';
 require_once 'edit_project.php';
 require_once 'delete_project.php';
@@ -146,7 +146,7 @@ require_once 'delete_project.php';
                             FROM project
                             INNER JOIN assigns ON project.project_id = assigns.project_id
                             INNER JOIN employee ON assigns.emp_id = employee.emp_id
-                            WHERE employee.login_id = ?
+                            WHERE employee.emp_id = ?
                             ORDER BY project.end_date";                            
                             if ($stmt = $con->prepare($sql)) {
                                 $stmt->bind_param("i", $memberID);
