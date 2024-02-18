@@ -1,0 +1,49 @@
+* = registerd already
+??? - create one during presentation
+
+employee:
+
+*Cbrady@makeitall.com (Cora Brady)
+p123Rh617
+
+* FrancoB@makeitall.com (Franco Baresi)
+p123Rh64
+
+* JohnM@makeitall.com (John Mikel)
+p123Rh61
+
+Adem
+Lawson
+A_law@makeitall.com
+???
+--------
+
+team leader:
+
+* Deanh@makeitall.com (Dean Henderson)
+p123Rh63
+
+* D.Wheeler@makeitall.com (Daphne Wheeler)
+p123Rh65
+
+clarence
+seedorf
+ClarenceS@makeitall.com
+???
+-----
+Admin:
+
+* RomeluL@makeitall.com (Romelu Lukaku)
+p123Rh62
+
+Eden
+Hazard
+EdenH@makeitall.com
+???
+
+35.246.76.223/phpmyadmin 
+
+Database passcodes:
+
+team20 password FjE*onBcO3)8KAwt
+root password: DCbVk(8U.sz0DNlp

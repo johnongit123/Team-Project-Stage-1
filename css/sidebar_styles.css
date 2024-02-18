@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@100;300;400;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600&display=swap');
+
+:root {
+    --transition: all 0.5s ease;
+}
+
+/* Overall Sidebar Design */
+.sidebar {
+    height: 100%;
+    background-color: #152033;
+    position: fixed;
+    padding: 8px 16px;
+    top: 0;
+    left: 0;
+    min-width: 80px;
+    width: 80px;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+/* Sidebar Design when 3 bars is clicked */
+.sidebar.active {
+    width: 250px;
+    transition: var(--transition);
+    left: 0;
+}
+
+/* Sidebar effect with header */
+.header.active{
+    width: calc(100% - 80px);
+    padding-left: 200px;
+    position: relative;
+    transition: var(--transition);
+}
+
+
+/* Sidebar effect with Main */
+.sidebar.active ~ .main-container {
+    padding-left: 200px;
+    transition: var(--transition);
+    position: relative;
+}
+
+
+/* Tooltips */
+
+.sidebar-list li a .tooltip{
+    position: absolute;
+    top: -20px;
+    left: calc(100% + 10px);
+    z-index: 999;
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 6px 14px;
+    font-size: 15px;
+    color: #000;
+    white-space: nowrap;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0s;
+    font-weight: 550;
+}
+
+.sidebar-list li:hover .tooltip{
+    opacity: 1;
+    pointer-events: auto;
+    transition: var(--transition);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar.active .tooltip {
+    display: none;
+}
+
+/* Sidebar effect with Faq buttons */
+
+
+.sidebar-top{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    position: relative;
+}
+
+/* Sidebar Logo design */
+.sidebar-logo{
+    color: white;
+    display: flex;
+    font-size: 23px;
+    font-weight: 600;
+    opacity: 0;
+}
+
+.sidebar-logo i{
+    color: #DDA236;
+    font-size: 30px;
+    margin-right: 5px;
+}
+
+.sidebar-logo span{
+    margin-left: 10px;
+}
+
+.sidebar.active .sidebar-logo {
+    opacity: 1;
+    transition: margin-right 0.4s ease;
+}
+
+
+
+
+/* Sidebar 3 bars design*/
+.sidebar-top #btn{
+    position: absolute;
+    color: white;
+    top: 50%;
+    right: 0;
+    font-size: 23px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    margin-right: 15px;
+    border-radius: 100;
+}
+
+.sidebar.active #btn{
+    margin-right: 0;
+}
+
+.sidebar-top #btn:hover{
+    background: rgba(70, 70, 70, 0.329)
+}
+
+
+/* Sidebar menu options design */
+
+.sidebar-list{
+    margin-top: 20px;
+    height: 100%;
+    margin-left: -34px;
+}
+
+.sidebar-list li{
+    list-style-type: none;
+    position: relative;
+    margin: 8px 0;
+    line-height: 60px;
+}
+
+.sidebar-list .material-symbols-outlined {
+    color: white;
+    height: 50px;
+    min-width: 50px;
+    font-size: 23px;
+    text-align: center;
+    line-height: 50px;
+    
+}
+
+.sidebar-list li a{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sidebar-list li:hover a {
+    background: var(--color-hover);
+}
+
+
+.sidebar-list li:hover .material-symbols-outlined {
+    color: #000;
+}
+
+.sidebar-list li a .text {
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    display: none;
+    transition: var(--transition);
+}
+
+
+
+.sidebar.active .sidebar-list li a .text{
+    display: block;
+    transition: var(--transition);
+}
+
+
+.sidebar-list li:hover a .text{
+    color: #000;
+}
+
+
+
+.sidebar-list .logoutMenu .material-symbols-outlined,
+.sidebar-list .logoutMenu .text{
+    color: red;
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    .sidebar.active ~ .shadow-effect {
+        display: flex;
+    }
+    
+    
+    .sidebar-list {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+
+    .sidebar.active ~ .main-container {
+        padding-left: 24px;
+        transition: none;
+    }
+    
+    
+    .header.active{
+        padding-left: 24px;
+        transition: none;
+    }
+}
+
