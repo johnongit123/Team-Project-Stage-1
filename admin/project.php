@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/session-config.php';
+check_login();
 require_once '../includes/dbh.php';
 require_once 'new_project.php';
 require_once 'edit_project.php';
