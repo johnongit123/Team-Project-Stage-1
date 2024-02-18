@@ -12,8 +12,9 @@ try {
     // Check if the connection was successful
     if (!$con){
         throw new Exception("Connection failed: " . mysqli_connect_error());
+    } else{
+          echo "we connected!";
     }
-     echo "we connected!";
 } catch(Exception $e) {
     // Connection failed, handle the exception
     die("Connection failed: " . $e->getMessage());
