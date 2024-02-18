@@ -18,6 +18,21 @@ function get_email(string $email){
         return $result;
 }
 
+function get_empid(string $email){
+        global $con;
+
+        $query = "SELECT emp_id FROM employee WHERE email = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+    
+        $stmt->bind_result($result);
+        $stmt->fetch();
+        $stmt->close();
+        
+        return $result;
+}
 
 function get_password(string $email){
         global $con;

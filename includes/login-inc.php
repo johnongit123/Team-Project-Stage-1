@@ -41,8 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $newSessionId = session_create_id();
         $sessionId = $newSessionId . "_". $loginId;
         session_id($sessionId);
+        $emp_id = get_empid();
 
-        $_SESSION['login_id'] = $loginId;
+        $_SESSION['emp_id'] = $emp_id;
         
         $_SESSION["last_regeneration"] = time();
         connect_user($email);
