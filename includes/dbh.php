@@ -1,5 +1,4 @@
 <?php
-
 $dbhost = "localhost";
 $dbuser = "team20";
 $dbpass = "FjE*onBcO3)8KAwt";
