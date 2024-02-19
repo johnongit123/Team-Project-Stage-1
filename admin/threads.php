@@ -254,15 +254,15 @@ require_once 'delete_threads.php';
             }
     });
 
-function openDescription() {
-    contentsContainer.style.display = "flex";
-    shadow_effect.style.display = "flex";
-}
-
-function closeDescription() {
-    contentsContainer.style.display = "none";
-    shadow_effect.style.display = "none";
-}
+    function openDescription() {
+        contentsContainer.style.display = "flex";
+        shadow_effect.style.display = "flex";
+    }
+    
+    function closeDescription() {
+        contentsContainer.style.display = "none";
+        shadow_effect.style.display = "none";
+    }
     
     //Invitation scripts
     // Function to open the popup
