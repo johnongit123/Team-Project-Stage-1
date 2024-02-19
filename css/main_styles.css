@@ -348,6 +348,8 @@ body{
 
 
 /* Create project form content */
+
+.create-thread-container,
 .project-form-container,
 .edit-form-container {
     position: fixed;
@@ -360,6 +362,7 @@ body{
     align-items: center;
     justify-content: center;
 }
+
 
 .project-form-content {
     background-color: #fff; 
@@ -412,6 +415,7 @@ body{
 
 /* Table List design*/
 
+#thread-tdbody,
 #project-tdbody,
 #employee-tdbody{
     vertical-align: middle !important;
@@ -431,11 +435,19 @@ body{
     cursor: pointer;
 }
 
+.title_name:hover, 
 .proj_name:hover{
     color: #1e4288;
 }
 
-/* Descreiption content */
+.title_name{
+    cursor: pointer;
+}
+
+
+
+/* Description  and Contents */
+.contents-container,
 .description-container {
     position: fixed;
     display: none;
@@ -448,6 +460,7 @@ body{
     justify-content: center;
 }
 
+.contents-content,
 .description-content {
     max-width: 70%;
     background-color: #fff; 
@@ -474,8 +487,6 @@ body{
     .chart-card {
         grid-template-columns: 1fr;
     }
-
-    
 
     .header,
     .main-container{
