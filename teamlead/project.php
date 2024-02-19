@@ -68,10 +68,10 @@ require_once 'delete_project.php';
                 </a>
             </li>
             <li class="sidebar-list-item">
-                <a href="faq.php">
-                    <span class="material-symbols-outlined">contact_support</span>
-                    <span class="text">FAQ</span>
-                    <span class="tooltip">FAQ</span>
+                <a href="threads.php">
+                <span class="material-symbols-outlined">mode_comment</span>
+                    <span class="text">Threads</span>
+                    <span class="tooltip">Threads</span>
                 </a>
             </li>
             <li class="sidebar-list-item logoutMenu">
