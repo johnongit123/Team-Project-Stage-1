@@ -91,8 +91,94 @@ check_login();
             <p class="font-weight-bold">ADMIN VIEW</p>
         </div>
 
+    <?php
+    $servername = "localhost";
+    $username = "team020";
+    $password = "YbiA4kgeNKEPrLNqFPap";
+    $dbname = "team020";
+    
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+$sql = "SELECT ThreadID, title, author, date, content FROM Threads";
+$result = $conn->query($sql);
+
+// Check if there are rows returned
+if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        // Generate HTML dynamically using fetched data
+        echo '<li class="row">
+                <a href="index.php/?id=' . $row["ThreadID"] . '">
+                    <h4 class="title">' . $row["title"] . '</h4>
+                    <div class="bottom">
+                        <p class="timestamp">' . date("Y-m-d H:i:s", strtotime($row["date"])) . ' ' . $row["author"] . '</p>
+                    </div>
+                </a>
+              </li>';
+    }
+} else {
+    echo "0 results";
+}
+ 
+echo '<div class="container">
+    <h2>Create New Thread</h2>
+    <form method="post" enctype="multipart/form-data" action="Forum/index.php">
+        <p for="thread_title"><strong>Thread Title:</strong></p>
+        <input type="text" id="thread_title" name="thread_title" required><br>
+
+        <p for="author_name"><strong>Your Name:</strong></p>
+        <input type="text" id="author_name" name="author_name" required><br>
+
+        <label for="thread_content"><strong>Thread Content:</strong></label><br>
+        <textarea id="thread_content" name="thread_content" rows="4" cols="50" required></textarea><br>
 
 
+        <input type="submit" id="create_thread_button" value="Create Thread">
+    </form>
+</div>';
+
+
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $threadTitle = $_POST["thread_title"];
+    $authorName = $_POST["author_name"];
+    $threadContent = $_POST["thread_content"];
+
+
+
+    $sqlAdd = "INSERT INTO Threads (Title, Author, Date, Content)
+               VALUES ('$threadTitle', '$authorName', NOW(), '$threadContent')";
+
+    // Execute SQL query
+    if ($conn->query($sqlAdd) === TRUE) {
+        echo 'New Record created Succesfully';
+    } else {
+        echo "Error: " . $sqlAdd . "<br>" . $conn->error;
+    }
+
+    // Close database connection
+    $conn->close();
+}
+
+
+
+
+
+// End HTML output
+echo '</ol>
+    </div>
+</body>
+</html>';
+?>
 
  
         
