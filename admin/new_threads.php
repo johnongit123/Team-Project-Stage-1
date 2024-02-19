@@ -12,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require_once '../includes/dbh.php';
         $errors = [];
 
-        if (strlen($project_name) > 29) {
-            $errors['project_name'] = 'Project name must be less than 30 characters.';
+        if (strlen($thread_title) > 29) {
+            $errors['thread_name'] = 'Thread name must be less than 30 characters.';
         }
 
-        if(empty($content) || empty($thread_title) || empty($author) || empty($end_date_str)){
+        if(empty($content) || empty($thread_title) || empty($author)){
             $errors["empty_input"] = "Please fill in all fields!";
         }
 
