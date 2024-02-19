@@ -163,7 +163,7 @@ require_once 'delete_threads.php';
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="create_thread_name">Project Name:</label>
+                                    <label for="create_thread_name">Thread Name:</label>
                                     <input type="text"  id="create_thread_name" name="thread_name" class="form-control form-control-sm" required>
                                 </div>
                             </div>
