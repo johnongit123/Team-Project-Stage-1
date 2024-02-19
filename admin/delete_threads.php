@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
     if($stmt->execute()){
         $_SESSION["success_delete"] = "Thread has been deleted successfully!";
-        header("Location: thread.php");
+        header("Location: threads.php");
         die();
     } else {
         // Handle any errors that occur during the deletion process
