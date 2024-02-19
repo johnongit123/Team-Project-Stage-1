@@ -208,7 +208,7 @@ require_once 'delete_threads.php';
 
 
         const contentData = <?php echo json_encode($threads); ?>;
-        const contentsContainer = document.getElementById("contents-container");
+        
         
         const rows = document.querySelectorAll("tbody#thread-tdbody tr");
         rows.forEach(row => {
@@ -251,6 +251,7 @@ require_once 'delete_threads.php';
     });
 
     const shadow_effect = document.getElementById("shadow-effect");
+    const contentsContainer = document.getElementById("contents-container");
     
     function openDescription() {
         contentsContainer.style.display = "flex";
