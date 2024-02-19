@@ -139,7 +139,7 @@ require_once 'delete_threads.php';
                             echo "<tr>";
                             echo "<td>" . ($index + 1) . "</td>";
                             echo "<td>" . $thread['thread_id'] . "</td>";
-                            echo "<td><p class='title_name'>" . $thread['title'] . "</p></td>";
+                            echo "<td><p class='title'>" . $thread['title'] . "</p></td>";
                             echo "<td>" . $thread['author'] . "</td>";
                             echo "<td>" . date("Y-m-d H:i:s", strtotime($thread['date'])) . "</td>";
                             echo "<td>
@@ -211,15 +211,15 @@ require_once 'delete_threads.php';
 
 
         const contentData = <?php echo json_encode($threads); ?>;
-        const rows = document.querySelectorAll("tbody#project-tdbody tr");
+        const rows = document.querySelectorAll("tbody#thread-tdbody tr");
         rows.forEach(row => {
-            const titleNameElement = row.querySelector('.title_name');
+            const titleNameElement = row.querySelector('.title');
             
             titleNameElement.addEventListener("click", () => {
                 event.stopPropagation(); // ensuring the parent elements arent affected by click
 
                 const titleName = titleNameElement.textContent;
-                const title = contentData.find(cont => cont.title_name === titleName);
+                const title = contentData.find(cont => cont.title === titleName);
                 const content = title ? title.content : '';
 
                 const contentText = document.getElementById("contents-text");
