@@ -136,7 +136,7 @@ require_once 'delete_threads.php';
                         foreach ($threads as $index => $thread){
                             echo "<tr>";
                             echo "<td>" . $thread['thread_id'] . "</td>";
-                            echo "<td><p class='title'>" . $thread['title'] . "</p></td>";
+                            echo "<td><p class='title_name'>" . $thread['title'] . "</p></td>";
                             echo "<td>" . $thread['author'] . "</td>";
                             echo "<td>" . date("Y-m-d H:i:s", strtotime($thread['date'])) . "</td>";
                             echo "<td>
@@ -208,21 +208,24 @@ require_once 'delete_threads.php';
 
 
         const contentData = <?php echo json_encode($threads); ?>;
+        
         const rows = document.querySelectorAll("tbody#thread-tdbody tr");
         rows.forEach(row => {
-            const titleNameElement = row.querySelector('.title');
+            const titleNameElement = row.querySelector('.title_name');
             
             titleNameElement.addEventListener("click", () => {
                 event.stopPropagation(); // ensuring the parent elements arent affected by click
 
                 const titleName = titleNameElement.textContent;
-                const title = contentData.find(cont => cont.title === titleName);
-                const content = title ? title.content : '';
+                const thread = contentData.find(thread => thread.title === titleName);
 
-                const contentText = document.getElementById("contents-text");
-                contentText.innerHTML = `<h2>${titleName}</h2><div class="divider"></div><p>${content}</p>`;
+                if (thread) {
+                    const content = thread.content;
+                    const contentText = document.getElementById("contents-text");
+                    contentText.innerHTML = `<h2>${titleName}</h2><div class="divider"></div><p>${content}</p>`;
                 
-                openDescription();
+                    openDescription();
+                }
             });
         });
 
