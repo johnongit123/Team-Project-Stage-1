@@ -208,14 +208,13 @@ require_once 'delete_threads.php';
 
 
         const contentData = <?php echo json_encode($threads); ?>;
+        const contentsContainer = document.getElementById("contents-container");
         
         const rows = document.querySelectorAll("tbody#thread-tdbody tr");
         rows.forEach(row => {
             const titleNameElement = row.querySelector('.title_name');
             
             titleNameElement.addEventListener("click", () => {
-                event.stopPropagation(); // ensuring the parent elements arent affected by click
-
                 const titleName = titleNameElement.textContent;
                 const thread = contentData.find(thread => thread.title === titleName);
 
@@ -227,6 +226,12 @@ require_once 'delete_threads.php';
                     openDescription();
                 }
             });
+        });
+    
+        contentsContainer.addEventListener("click", (e) => {
+            if (e.target === contentsContainer) {
+                    closeDescription();
+                }
         });
 
         const createThreadButton = document.getElementById("create-thread-button");
@@ -246,14 +251,7 @@ require_once 'delete_threads.php';
     });
 
     const shadow_effect = document.getElementById("shadow-effect");
-    const contentsContainer = document.getElementById("contents-container");
-
-    contentsContainer.addEventListener("click", (e) => {
-        if (e.target === contentsContainer) {
-                closeDescription();
-            }
-    });
-
+    
     function openDescription() {
         contentsContainer.style.display = "flex";
         shadow_effect.style.display = "flex";
