@@ -318,13 +318,14 @@ body{
 
 /*------project design---qwe---*/
 
+.create-thread-button,
 .create-project-button,
 .edit-project-button,
 .member-add-button {
     margin-left: 10px;
 }
 
-
+.create-thread-button button,
 .create-project-button button,
 .edit-project-button button,
 .member-add-button button {
@@ -339,6 +340,7 @@ body{
     transition: background-color 0.3s ease;
 }
 
+.create-thread-button button,
 .create-project-button button:hover,
 .edit-project-button button:hover,
 .member-add-button button:hover {
