@@ -140,8 +140,8 @@ require_once 'delete_threads.php';
                             echo "<td>" . ($index + 1) . "</td>";
                             echo "<td>" . $thread['thread_id'] . "</td>";
                             echo "<td><p class='title_name'>" . $thread['title'] . "</p></td>";
-                            echo "<td>" . $project['author'] . "</td>";
-                            echo "<td>" . date("Y-m-d H:i:s", strtotime($project['date'])) . "</td>";
+                            echo "<td>" . $thread['author'] . "</td>";
+                            echo "<td>" . date("Y-m-d H:i:s", strtotime($thread['date'])) . "</td>";
                             echo "<td>
                             <div class='dropdown'>
                                 <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton{$index}' data-bs-toggle='dropdown' aria-expanded='false'>
