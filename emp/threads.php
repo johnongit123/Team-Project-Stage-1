@@ -89,7 +89,7 @@ require_once 'new_threads.php';
     <!--Main Content-->
     <main class="main-container">
         <div class="main-title">
-            <p class="font-weight-bold">ADMIN VIEW</p>
+            <p class="font-weight-bold">EMPLOYEE VIEW</p>
         </div>
 
         <div class="charts single-view big-chart">
