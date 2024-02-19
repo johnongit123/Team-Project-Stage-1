@@ -169,7 +169,7 @@ require_once 'delete_threads.php';
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="author_name">Your Name:</label>
+                                    <label for="create_author_name">Your Name:</label>
                                     <input type="text"  id="create_author_name" name="author_name" class="form-control form-control-sm" required>
                                 </div>
                             </div>
