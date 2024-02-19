@@ -145,7 +145,7 @@ require_once 'delete_threads.php';
                                     Actions
                                 </button>
                                 <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton{$index}'>
-                                    <li><a class='dropdown-item delete-action' href='delete_thread.php?id={$thread['thread_id']}'>Delete</a></li>
+                                    <li><a class='dropdown-item delete-action' href='delete_threads.php?id={$thread['thread_id']}'>Delete</a></li>
                                 </ul>
                             </div>
                         </td>";
