@@ -68,13 +68,13 @@ function connect_user(string $email){
         if ($job_role !== null) {
                 switch ($job_role) {
                 case 'admin':
-                        header("Location: ../admin/ad_dash.php");
+                        header("Location: ../admin/project.php");
                         break;
                 case 'team_leader':
-                        header("Location: ../teamlead/tl_dash.php");
+                        header("Location: ../teamlead/task.php");
                         break;
                 case 'employee':
-                        header("Location: ../emp/emp_dash.php");
+                        header("Location: ../emp/task.php");
                         break;
                 default:
                         // Default redirect if job role is not recognized
