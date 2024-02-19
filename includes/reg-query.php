@@ -135,10 +135,10 @@ function success_redirect($email){
                 header("Location: ../admin/project.php");
                 break;
             case 'team_leader':
-                header("Location: ../teamlead/task.php");
+                header("Location: ../teamlead/tasks.php");
                 break;
             case 'employee':
-                header("Location: ../emp/task.php");
+                header("Location: ../emp/tasks.php");
                 break;
             default:
                 // Default redirect if job role is not recognized
