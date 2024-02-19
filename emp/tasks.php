@@ -52,13 +52,6 @@ check_login();
         </div>
         <ul class="sidebar-list">
             <li class="sidebar-list-item">
-                <a href="emp_dash.php">
-                    <span class="material-symbols-outlined">dashboard</span>
-                    <span class="text">Dashboard</span>
-                    <span class="tooltip">Dashboard</span>
-                </a>
-            </li>
-            <li class="sidebar-list-item">
                 <a href="tasks.php">
                     <span class="material-symbols-outlined">task</span>
                     <span class="text">Tasks</span>
