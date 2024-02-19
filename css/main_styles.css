@@ -452,7 +452,7 @@ body{
 .contents-container,
 .description-container {
     position: fixed;
-    display: none;
+    display: flex;
     left: 0;
     top: 0;
     width: 100%;
