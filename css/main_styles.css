@@ -340,7 +340,7 @@ body{
     transition: background-color 0.3s ease;
 }
 
-.create-thread-button button,
+.create-thread-button button:hover,
 .create-project-button button:hover,
 .edit-project-button button:hover,
 .member-add-button button:hover {
