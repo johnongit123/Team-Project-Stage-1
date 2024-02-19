@@ -104,7 +104,6 @@ require_once 'delete_threads.php';
                 <table class="table table-hover">
                     <colgroup>
                         <col width="5%">
-                        <col width="5%">
                         <col width="20%">
                         <col width="15%">
                         <col width="15%">
@@ -112,7 +111,6 @@ require_once 'delete_threads.php';
                     </colgroup>
                     <thead>
                         <tr>
-                            <th class="text-center">#</th>
                             <th>ID</th>
                             <th>Thread</th>
                             <th>Author</th>
@@ -137,7 +135,6 @@ require_once 'delete_threads.php';
 
                         foreach ($threads as $index => $thread){
                             echo "<tr>";
-                            echo "<td>" . ($index + 1) . "</td>";
                             echo "<td>" . $thread['thread_id'] . "</td>";
                             echo "<td><p class='title'>" . $thread['title'] . "</p></td>";
                             echo "<td>" . $thread['author'] . "</td>";
