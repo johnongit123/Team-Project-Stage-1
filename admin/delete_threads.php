@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $thread_id = $_GET['id'];
 
     // Construct the SQL query to delete the thread
-    $query = "DELETE FROM thread WHERE thread_id = ?";
+    $query = "DELETE FROM Threads WHERE thread_id = ?";
 
     $stmt = mysqli_prepare($con, $query);
     $stmt->bind_param('i', $thread_id);
