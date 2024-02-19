@@ -188,13 +188,13 @@ require_once 'delete_threads.php';
                             </div>
                         </div>
                     </form>
-                </div> 
-                <div class="contents-container" id="contents-container">
-                    <div class="contents-content">
-                        <p id="contents-text"></p>
-                    </div>
                 </div>
             </div>
+            <div class="contents-container" id="contents-container">
+                <div class="contents-content">
+                    <p id="contents-text"></p>
+                </div>
+            </div> 
         </div>
     </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
