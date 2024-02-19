@@ -201,7 +201,6 @@ require_once 'delete_project.php';
                         </tbody>
                     </table>
                 </div>
-                
                 <!--Edit form-->
                 <div id="edit-form-container" class="project-form-container">
                     <div class="project-form-content">
@@ -330,7 +329,7 @@ require_once 'delete_project.php';
             });
         });
         
-        //edit button scripts
+       //edit button scripts
         const editProjectButton = document.getElementById("edit-project-button");
         const editFormContainer = document.getElementById("edit-form-container");
 
@@ -345,6 +344,7 @@ require_once 'delete_project.php';
                 shadow_effect.style.display = "none";
             }
         });
+
     });
 
    
