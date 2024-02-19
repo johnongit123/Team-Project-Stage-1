@@ -86,7 +86,7 @@ require_once 'delete_threads.php';
             <p class="font-weight-bold">ADMIN VIEW</p>
         </div>
 
-        <div class="charts single-view">
+        <div class="charts single-view big-chart">
             <div class="charts-card">
             <div class="chart-header">
                 <p class="chart-title">Threads</p>
