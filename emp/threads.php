@@ -141,7 +141,7 @@ require_once 'new_threads.php';
                             echo "<td>" . $thread['thread_id'] . "</td>";
                             echo "<td><p class='title_name'>" . $thread['title'] . "</p></td>";
                             echo "<td>" . $thread['author'] . "</td>";
-                            echo "<td>" . date("Y-m-d H:i:s", strtotime($thread['date'])) . "</td>";
+                            echo "<td>" . $thread['date'] . "</td>";
                             echo "</tr>";
                         }
                         ?>
