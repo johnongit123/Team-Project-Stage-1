@@ -156,7 +156,7 @@ function assign_to_project($selected_id, $project_id){
 
     $count = assign_occurences($selected_id);
 
-    if($count >= 2){
+    if($count >= 1){
         $query = "UPDATE assigns set project_id = ? WHERE project_id IS NULL AND emp_id = ? LIMIT 1";
         $stmt = $con->prepare($query);
         $stmt->bind_param("ii", $project_id, $selected_id);
