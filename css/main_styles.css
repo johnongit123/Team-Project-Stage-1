@@ -249,7 +249,6 @@ body{
 
 
 /* form content */
-
 .project-form-container{
     position: fixed;
     display: none;
@@ -261,7 +260,6 @@ body{
     align-items: center;
     justify-content: center;
 }
-
 
 .project-form-content{
     background-color: #fff; 
