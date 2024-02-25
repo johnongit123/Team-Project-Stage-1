@@ -208,17 +208,18 @@ require_once 'delete_project.php';
                         <div class="divider"></div>
                         <form id="edit-project-form" action="edit_project.php" method="post">
                             <div class="row align-items-start">
-                                <label for="select-project">Choose Project:</label>
-                                <select id="select-project" name="project_info" required>
-                                    <option value=""></option>
-                                    <?php
-                                        foreach ($projects as $index => $project) {
-                                            echo "<option value='{$project['project_id']}' data-project-id='{$project['project_id']}' data-project-name='{$project['project_name']}' data-start-date='{$project['start_date']}' data-end-date='{$project['end_date']}' data-description='" . htmlspecialchars($project['description']) . "'>#{$project['project_id']} - {$project['project_name']}</option>";
-                                        }
-                                    ?>
-                                    <!-- Add more options here -->
-                                </select>
-                                <input type="hidden" id="edit_project_id" name="project_id">
+                                <div class="col-md-16">
+                                    <label for="select-project">Choose Project:</label>
+                                    <select id="select-project" name="project_info" required>
+                                        <option value=""></option>
+                                        <?php
+                                            foreach ($projects as $index => $project) {
+                                                echo "<option value='{$project['project_id']}' data-project-id='{$project['project_id']}' data-project-name='{$project['project_name']}' data-start-date='{$project['start_date']}' data-end-date='{$project['end_date']}' data-description='" . htmlspecialchars($project['description']) . "'>#{$project['project_id']} - {$project['project_name']}</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" id="edit_project_id" name="project_id">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6"> 
