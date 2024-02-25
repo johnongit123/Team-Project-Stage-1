@@ -155,8 +155,8 @@ require_once 'delete_threads.php';
                     </tbody>
                 </table>
             </div>
-            <div id="create-thread-container" class="create-thread-container">
-                <div class="project-form-content">
+            <div id="create-thread-container" class="form-container">
+                <div class="form-content">
                     <h2>Create Thread</h2>
                     <div class="divider"></div>
                     <form id="thread-form" action="new_threads.php" method="post">
