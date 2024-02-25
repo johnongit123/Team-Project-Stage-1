@@ -11,6 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $selected_employee_fullname = $_POST['selected_employees'];
     $project_id = rand(1000, 9999);
 
+    $start_date = date('Y-m-d', strtotime(str_replace('/', '-', $start_date_str)));
+    $end_date = date('Y-m-d', strtotime(str_replace('/', '-', $end_date_str)));
+
+    $manager_names = explode(" ", $selected_manager_fullname);
+    $manager_first_name = $manager_names[0];
+    $manager_last_name = $manager_names[1];
+
+    $employee_names = explode(" ", $selected_employee_fullname);
+    $employee_first_name = $employee_names[0];
+    $employee_last_name = $employee_names[1];
+            
+    $selected_manager_id = get_id_by_manager_name($manager_first_name, $manager_last_name);
+    $selected_emp_id = get_id_by_employee_name($employee_first_name, $employee_last_name);
+
     try {
         require_once '../includes/dbh.php';
         $errors = [];
@@ -30,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["project_exists"] = "This project already exists!";
         }
 
+        if (check_project_assignment($selected_emp_id) >= 1 || check_project_assignment($selected_manager_id) >= 1){
+            $errors["on_project"] = "This person is already on a Project!";
+        }
+
         if ($start_date_str > $end_date_str) {
             $errors['date_range'] = 'Start date cannot be after end date.';
         }
@@ -40,19 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             header("Location: project.php");
             die();
         } else {
-            $start_date = date('Y-m-d', strtotime(str_replace('/', '-', $start_date_str)));
-            $end_date = date('Y-m-d', strtotime(str_replace('/', '-', $end_date_str)));
-
-            $manager_names = explode(" ", $selected_manager_fullname);
-            $manager_first_name = $manager_names[0];
-            $manager_last_name = $manager_names[1];
-
-            $employee_names = explode(" ", $selected_employee_fullname);
-            $employee_first_name = $employee_names[0];
-            $employee_last_name = $employee_names[1];
-                    
-            $selected_manager_id = get_id_by_manager_name($manager_first_name, $manager_last_name);
-            $selected_emp_id = get_id_by_employee_name($employee_first_name, $employee_last_name);
+            
             
             create_project($project_id, $project_name, $description, $start_date, 
             $end_date, $status, $selected_manager_id, $selected_emp_id, $selected_manager_fullname); // add to project database
@@ -205,4 +211,17 @@ function assign_occurences($selected_id){
     $stmt->fetch();
     $stmt->close();
     return $count;
+}
+
+function check_project_assignment($selected_id){
+    global $con;
+    $query = "SELECT COUNT(*) FROM assigns WHERE project_id is NOT null and emp_id = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("i", $selected_id);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+
+    return $count;    
 }
