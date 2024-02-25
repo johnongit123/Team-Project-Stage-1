@@ -191,9 +191,9 @@ require_once 'remove_employee_from_project.php';
                         </tbody>
                     </table>
                 </div>
-                <div id="project-form-container" class="project-form-container">
+                <div id="project-form-container" class="form-container">
                     <!--Create project-->
-                    <div class="project-form-content">
+                    <div class="form-content">
                         <h2>Create Project</h2>
                         <div class="divider"></div>
                         <form id="project-form" action="new_project.php" method="post">
@@ -315,8 +315,8 @@ require_once 'remove_employee_from_project.php';
                     </div>
                 </div>
                 <!--Edit form-->
-                <div id="edit-form-container" class="project-form-container">
-                    <div class="project-form-content">
+                <div id="edit-form-container" class="form-container">
+                    <div class="form-content">
                         <h2>Edit Project</h2>
                         <div class="divider"></div>
                         <form id="edit-project-form" action="edit_project.php" method="post">
@@ -479,8 +479,8 @@ require_once 'remove_employee_from_project.php';
                         </tbody>
                     </table>
                 </div>
-                <div id="member-add-container" class="project-form-container">
-                    <div class="project-form-content">
+                <div id="member-add-container" class="form-container">
+                    <div class="form-content">
                         <h3>Member Assignments</h3>
                         <div class="divider"></div>
                         <form id="assign-project-form" action="assign_employee_project.php" method="post">
