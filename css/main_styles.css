@@ -250,7 +250,7 @@ body{
 
 /* form content */
 
-.form-container {
+.form-container{
     position: fixed;
     display: none;
     left: 0;
@@ -263,7 +263,7 @@ body{
 }
 
 
-.form-content {
+.form-content{
     background-color: #fff; 
     padding: 20px;
     border-radius: 5px;
@@ -280,7 +280,7 @@ body{
 .form-content input[type="text"],
 .form-content input[type="date"],
 .form-content input[type="time"],
-.form-content select {
+.form-content select{
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
