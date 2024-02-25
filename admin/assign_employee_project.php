@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["employee_assigned"] = "Employee is already assigned to the selected project(s).";
         }
 
-        if(is_employee_available($employee_id, $project_id) >= 2){
-            $errors["max_employee"] = "Employee cannot be assigned to more than 2 projects.";
+        if(is_employee_available($employee_id, $project_id) >= 1){
+            $errors["max_employee"] = "Employee cannot be assigned to more than 1 project.";
         }
 
         if (!empty($errors)){
@@ -103,7 +103,7 @@ function assign_manager($project_id, $employee_id, $staff_name){
 function assign_member($project_id, $employee_id){
     global $con;
     $existing_count = get_employee_count($employee_id);
-    if ($existing_count < 2) {
+    if ($existing_count < 1) {
         $query = "INSERT INTO assigns (project_id, emp_id) VALUES (?, ?)";
         $stmt = $con->prepare($query);
         $stmt->bind_param("ii", $project_id, $employee_id);
