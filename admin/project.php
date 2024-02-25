@@ -287,7 +287,7 @@ require_once 'remove_employee_from_project.php';
                                                 // Fetch each row of the result as an associative array and store it in $projects
                                                 while($emp_row = $emp_result->fetch_assoc()) {
                                                     $e_fullname = $emp_row['first_name'].' '. $emp_row['last_name'];
-                                                    $e_disabled = $emp_row['num_assignments'] >= 2 ? "disabled" : ""; // Check if employee has at least 2 assignments
+                                                    $e_disabled = $emp_row['num_assignments'] > 0 ? "disabled" : ""; // Check if employee has any existing assignments
                                                     echo "<option value=\"" . htmlspecialchars($e_fullname) . "\" $e_disabled>" . htmlspecialchars($e_fullname) . "</option>";
                                                 }
                                             } else {
