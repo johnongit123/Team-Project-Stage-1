@@ -220,6 +220,7 @@ body{
 .create-thread-button,
 .create-project-button,
 .edit-project-button,
+.edit-task-button,
 .member-add-button {
     margin-left: 10px;
 }
@@ -227,6 +228,7 @@ body{
 .create-thread-button button,
 .create-project-button button,
 .edit-project-button button,
+.edit-task-button button,
 .member-add-button button {
     background-color:  #21232d;
     color: #fff;
@@ -239,9 +241,11 @@ body{
     transition: background-color 0.3s ease;
 }
 
+
 .create-thread-button button:hover,
 .create-project-button button:hover,
 .edit-project-button button:hover,
+.edit-task-button button:hover,
 .member-add-button button:hover {
     background-color: #255cca; 
 }
