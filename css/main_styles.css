@@ -250,7 +250,7 @@ body{
 
 /* form content */
 
-.form-container{
+.project-form-container{
     position: fixed;
     display: none;
     left: 0;
@@ -263,7 +263,7 @@ body{
 }
 
 
-.form-content{
+.project-form-content{
     background-color: #fff; 
     padding: 20px;
     border-radius: 5px;
@@ -271,16 +271,16 @@ body{
     color: #383858;
 }
 
-.form-content label{
+.project-form-content label{
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.form-content input[type="text"],
-.form-content input[type="date"],
-.form-content input[type="time"],
-.form-content select{
+.project-form-content input[type="text"],
+.project-form-content input[type="date"],
+.project-form-content input[type="time"],
+.project-form-content select{
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -291,9 +291,9 @@ body{
     
 }
 
-.form-content .create-button,
-.form-content .edit-button,
-.form-content .assign-button {
+.project-form-content .create-button,
+.project-form-content .edit-button,
+.project-form-content .assign-button {
     margin-top: 10px;
     background-color:  #383858;
     color: white;
@@ -306,9 +306,9 @@ body{
 
 
 
-.form-content .create-button:hover,
-.form-content .edit-button:hover,
-.form-content .assign-button:hover {
+.project-form-content .create-button:hover,
+.project-form-content .edit-button:hover,
+.project-form-content .assign-button:hover {
     background-color: #255cca; 
 }
 
