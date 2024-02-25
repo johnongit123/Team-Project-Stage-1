@@ -202,8 +202,8 @@ require_once 'delete_project.php';
                     </table>
                 </div>
                 <!--Edit form-->
-                <div id="edit-form-container" class="project-form-container">
-                    <div class="project-form-content">
+                <div id="edit-form-container" class="form-container">
+                    <div class="form-content">
                         <h2>Edit Project</h2>
                         <div class="divider"></div>
                         <form id="edit-project-form" action="edit_project.php" method="post">
