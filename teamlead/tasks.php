@@ -1,9 +1,12 @@
 <?php
 require_once '../includes/session-config.php';
-check_login();
-
+$memberID = check_login();
+require_once '../includes/dbh.php';
+require_once 'delete_task.php';
+require_once 'edit_task.php';
+require_once 'remove_employee_from_task.php';
+require_once 'assign_employee_task.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,17 +94,356 @@ check_login();
             <p class="font-weight-bold">PROJECT LEADER VIEW</p>
         </div>
         
-        
+        <div class="charts single-view">
+            <div class="charts-card">
+                <div class="chart-header">
+                    <p class="chart-title">TASKS LIST</p>
+                    <div class="edit-task-button">
+                        <button id="edit-task-button">Edit Task</button>
+                    </div>
+                </div>    
+                <div class="divider"></div>
+                <?php
+                    success_edit_task();
+                    success_del();
+                    check_edit_task_errors();
+                ?>
+                <div class="chart-list">
+                    <!--Table contents-->   
+                    <table class="table table-hover">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="30%">
+                            <col width="15%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="5%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>ID</th>
+                                <th>Task</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Manager</th>
+                                <th>Project</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="project-tdbody">
+                            <!--All the project tables-->
+                            <?php
+                            $sql = "SELECT * FROM task ORDER BY end_date";
+                            $result = $con->query($sql);
+
+                            $tasks = [];
+
+                            if ($result->num_rows > 0) {
+                                // Fetch each row of the result as an associative array and store it in $tasks
+                                while($row = $result->fetch_assoc()) {
+                                    $tasks[] = $row;
+                                }
+                            } else {
+                                echo "<tr><td colspan='9'><p class='form-error' style='margin-top: 10px;'>0 results</p></td></tr>";
+                            }
+                            foreach ($tasks as $index => $task) {
+                                echo "<tr>";
+                                echo "<td>" . ($index + 1) . "</td>";
+                                echo "<td>" . $task['task_id'] . "</td>";
+                                echo "<td>" . $task['task_name'] . "</td>";
+                                echo "<td>" . $task['end_date'] . "</td>";
+                                echo "<td>" . $task['status'] . "</td>";               
+                                echo "<td>" . $task['priority'] . "</td>";
+                                echo "<td>" . ($task['manager_name'] ? $task['manager_name'] : '-') . "</td>";
+                                echo "<td>" . $task['project_id'] . "</td>";
+                                echo "<td>
+                                    <div class='dropdown'>
+                                        <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton{$index}' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Actions
+                                        </button>
+                                        <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton{$index}'>
+                                            <li><a class='dropdown-item delete-action' href='delete_task.php?id={$task['task_id']}'>Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>";
+
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                        
+                <!--Edit form-->
+                <div id="edit-form-container" class="project-form-container">
+                    <div class="project-form-content">
+                        <h2>Edit Task</h2>
+                        <div class="divider"></div>
+                        <form id="edit-task-form" action="edit_task.php" method="post">
+                            <div class="row align-items-start">
+                                <label for="select-project">Choose Task:</label>
+                                <select id="select-project" name="project_info" required>
+                                    <option value=""></option>
+                                    <?php
+                                        foreach ($tasks as $index => $task) {
+                                            echo "<option value='{$task['task_id']}' data-task-id='{$task['task_id']}' data-task-name='{$task['task_name']}'  data-end-date='{$task['end_date']}'>#{$task['task_id']} - {$task['task_name']}</option>";
+                                        }
+                                    ?>
+                                    <!-- Add more options here -->
+                                </select>
+                                <input type="hidden" id="edit_task_id" name="task_id">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"> 
+                                    <div class="form-group">
+                                        <label for="edit_task_name">Task Name:</label>
+                                        <input type="text" id="edit_task_name" name="task_name" class="form-control form-control-sm" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label for="edit_task_status">Status:</label>
+                                        <select name="status" id="edit_task_status" class="form-control form-control-sm" required>
+                                            <?php
+                                                $stat = array("Pending","Started","On-Progress","On-Hold","Over Due","Done");
+                                                foreach ($stat as $value) {
+                                                    echo "<option value=\"$value\">$value</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label for="edit_task_priority">Priority:</label>
+                                        <select name="priority" id="edit_task_priority" class="form-control form-control-sm" required>
+                                            <?php
+                                                $prio = array("High","Medium","Low");
+                                                foreach ($prio as $p_value) {
+                                                    echo "<option value=\"$p_value\">$p_value</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"> 
+                                    <div class="form-group">
+                                        <label for="edit_end_date">Deadline:</label>
+                                        <input type="date" id="edit_end_date" name="end_date" class="form-control form-control-sm" required>
+                                    </div>           
+                                </div>                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="edit-button btn">Edit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="charts-card">
+                <div class="chart-header">
+                    <p class="chart-title">MEMBERS LIST</p>
+                    <div class="member-add-button">
+                        <button id="member-add-button">Add to Task</button>
+                    </div>
+                </div>    
+                <div class="divider"></div>
+                <?php
+                    success_assign_task();
+                    success_remove_task();
+                    check_assign_errors_task();
+                    check_remove_errors_task();
+                ?>
+                <div class="chart-list">
+                    <!--Table contents-->   
+                    <table class="table table-hover">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">                       
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Employee ID</th>
+                                <th>Employee Name</th>
+                                <th>Role</th>
+                                <th>Assignment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-tdbody">
+                            <!--All the project tables-->
+                            <?php
+                            $staff_query = "SELECT employee.emp_id, employee.first_name, employee.last_name, employee.job_role, GROUP_CONCAT(DISTINCT assigns.task_id) 
+                            AS assigned_tasks FROM employee LEFT JOIN assigns ON employee.emp_id = assigns.emp_id WHERE employee.is_reg ='Y' AND employee.job_role IN ('team_leader', 'employee') GROUP BY employee.emp_id";
+                  
+                            $staff_result = $con->query($staff_query);
+
+                            $stafflist = [];
+
+                            if ($staff_result->num_rows > 0) {
+                                // Fetch each row of the result as an associative array and store it in $tasks
+                                while($staff_row = $staff_result->fetch_assoc()) {
+                                    $stafflist[] = $staff_row;
+                                }
+                            } else {
+                                echo "<p class='form-error'>0 results</p>";
+                            }
+                            foreach ($stafflist as $s_index => $staff) {
+                                $staff_full_name = $staff['first_name'] . ' ' . $staff['last_name'];
+                                echo "<tr>";
+                                echo "<td>" . ($s_index + 1) . "</td>";
+                                echo "<td>" . $staff['emp_id'] . "</td>";
+                                echo "<td>" . $staff_full_name . "</td>";
+                                echo "<td>" . ucwords(str_replace('_', ' ', strtolower($staff['job_role']))) . "</td>";
+                                
+                                if(!empty($staff['assigned_tasks'])) {
+                                    echo '<td>Assigned to: ' . $staff['assigned_tasks'] . '</td>';
+                                } else {
+                                    echo '<td style="color: #26b82d;">Available</td>';
+                                }
+
+                                echo "<td>
+                                    <div class='dropdown'>
+                                        <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton{$s_index}' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Actions
+                                        </button>
+                                        <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton{$s_index}'>
+                                        <li><a class='dropdown-item remove-action' href='remove_employee_from_task.php?emp_id={$staff['emp_id']}&task_ids={$staff['assigned_tasks']}'>Remove</a>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </td>";
+
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="member-add-container" class="project-form-container">
+                    <div class="project-form-content">
+                        <h3>Member Assignments</h3>
+                        <div class="divider"></div>
+                        <form id="assign-task-form" action="assign_employee_task.php" method="post">
+                            <div class="row align-items-center">
+                                <div class="col-md">
+                                    <label for="choose-task">Choose Task:</label>
+                                    <select id="choose-task" name="task_id" required>
+                                        <option value=""></option>
+                                        <?php
+                                            foreach ($tasks as $index => $task) {
+                                                echo "<option value='{$task['task_id']}'>#{$task['task_id']} - {$task['task_name']}</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md">           
+                                    <label for="choose-member">Choose Member:</label>
+                                    <select id="choose-member" name="emp_id" required>
+                                        <option value=""></option>
+                                        <?php 
+                                            foreach ($stafflist as $staff) {
+                                                $staff_full_name = $staff['first_name'] . ' ' . $staff['last_name'];
+                                                echo "<option value='{$staff['emp_id']}' data-jobrole='{$staff['job_role']}' data-staffname='{$staff_full_name}'>#{$staff['emp_id']} - {$staff_full_name} (" . ucwords(str_replace('_', ' ', strtolower($staff['job_role']))) . ")</option>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="job_role" name="job_role">
+                            <input type="hidden" id="staff_name" name="staff_name">
+                            <div class="row align-items-end">
+                                <div class="col-md-15">
+                                    <button class="assign-button">Assign</button>
+                                </div>
+                            </div>
+                        </form>                    
+                    </div>                
+                </div>
+            </div>
+        </div>  
     </main>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="../js/sidebar_scripts.js"></script>
 <script>
-    
+     $(document).ready(function () {
+        $('#choose-member').change(function () {
+            var selectedOption = $(this).find('option:selected');
+            var jobRole = selectedOption.attr('data-jobrole');
+            var staffFullName = selectedOption.attr('data-staffname');
+            $('#job_role').val(jobRole);
+            $('#staff_name').val(staffFullName);
+        });
+    });
+
+    $(document).ready(function () {
+        $('#select-project').change(function () {
+            var taskOption = $(this).find('option:selected');
+            
+            var taskId = taskOption.attr('data-task-id');
+            var taskName = taskOption.attr('data-task-name');
+            var endDate = taskOption.attr('data-end-date');
+
+            $('#edit_task_id').val(taskId);
+            $('#edit_task_name').val(taskName);
+            $('#edit_end_date').val(endDate);
+        });
+    });
 
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('invite-link').addEventListener('click', openPopup);
+        
+        const editTaskButton = document.getElementById("edit-task-button");
+        const editFormContainer = document.getElementById("edit-form-container");
+
+        editTaskButton.addEventListener("click", () => {
+            editFormContainer.style.display = "flex";
+            shadow_effect.style.display = "flex"; 
+        });
+
+        editFormContainer.addEventListener("click", (e) => {
+            if (e.target === editFormContainer) {
+                editFormContainer.style.display = "none";
+                shadow_effect.style.display = "none";
+            }
+        });
+
+        const addMemberButton = document.getElementById("member-add-button");
+        const addMemberFormContainer = document.getElementById("member-add-container");
+
+        addMemberButton.addEventListener("click", () => {
+            addMemberFormContainer.style.display = "flex";
+            shadow_effect.style.display = "flex"; 
+        });
+
+
+        addMemberFormContainer.addEventListener("click", (e) => {
+            if (e.target === addMemberFormContainer) {
+                addMemberFormContainer.style.display = "none";
+                shadow_effect.style.display = "none";
+            }
+        });
     });
 
     const shadow_effect = document.getElementById("shadow-effect");
