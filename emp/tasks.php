@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/session-config.php';
-check_login();
-
+$memberID = check_login();
+require_once '../includes/dbh.php';
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +90,85 @@ check_login();
         <div class="main-title">
             <p class="font-weight-bold">EMPLOYEE VIEW</p>
         </div>
-        
-        
+        <div class="charts single-view big-chart">
+            <div class="charts-card">
+                <!--Card header portion-->
+                <div class="chart-header">
+                    <p class="chart-title">TASK LIST</p>
+                </div>
+                <div class="divider"></div>
+                <div class="chart-list">
+                    <!--Table contents-->   
+                    <table class="table table-hover">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="30%">
+                            <col width="15%">
+                            <col width="10%">
+                            <col width="10%">
+                            <col width="15%">
+                            <col width="10%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>ID</th>
+                                <th>Task</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Manager</th>
+                                <th>Project</th>
+                            </tr>
+                        </thead>
+                        <tbody id="project-tdbody">
+                            <!--All the task tables-->    
+                            <?php
+                            $sql = "SELECT task.*
+                            FROM task
+                            INNER JOIN assigns ON task.task_id = assigns.task_id
+                            INNER JOIN employee ON assigns.emp_id = employee.emp_id
+                            WHERE employee.emp_id = ?
+                            ORDER BY task.end_date";                            
+                            if ($stmt = $con->prepare($sql)) {
+                                $stmt->bind_param("i", $memberID);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+
+                                $tasks = [];
+
+                                if ($result->num_rows > 0) {
+                                    // Fetch each row of the result as an associative array and store it in $tasks
+                                    while($row = $result->fetch_assoc()) {
+                                        $tasks[] = $row;
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='7'><p class='form-error' style='margin-top: 10px;'>No tasks have been assigned</p></td></tr>";
+                                }
+                                
+                                foreach ($tasks as $index => $task) {
+                                    echo "<tr>";
+                                    echo "<td>" . ($index + 1) . "</td>";
+                                    echo "<td>" . $task['task_id'] . "</td>";
+                                    echo "<td>" . $task['task_name'] . "</td>";
+                                    echo "<td>" . $task['end_date'] . "</td>";
+                                    echo "<td>" . $task['status'] . "</td>";               
+                                    echo "<td>" . $task['priority'] . "</td>";
+                                    echo "<td>" . ($task['manager_name'] ? $task['manager_name'] : '-') . "</td>";
+                                    echo "<td>" . $task['project_id'] . "</td>"; 
+                                    echo "</tr>";
+                                }
+                            } else {
+                                // Handle errors if needed
+                                echo "Error: " . $con->error;
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>     
     </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
