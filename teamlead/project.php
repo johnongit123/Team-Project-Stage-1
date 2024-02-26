@@ -110,7 +110,9 @@ require_once 'delete_project.php';
                 <div class="divider"></div>
                 <?php 
                 success_edit();
+                success_task();
                 check_edit_errors();
+                check_task_errors();
                 ?>
                 <div class="chart-list">
                     <!--Table contents-->   
