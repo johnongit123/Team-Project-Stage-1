@@ -98,8 +98,13 @@ require_once 'delete_project.php';
                 <!--Card header portion-->
                 <div class="chart-header">
                     <p class="chart-title">PROJECTS LIST</p>
-                    <div class="edit-project-button">
+                    <div class="button-group">
+                        <div class="create-task-button">
+                            <button id="create-task-button">Add Task</button>
+                        </div>
+                        <div class="edit-project-button">
                             <button id="edit-project-button">Edit Project</button>
+                        </div>
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -272,6 +277,111 @@ require_once 'delete_project.php';
                         </form>
                     </div>
                 </div>
+                <!-- Task Creation -->                                  
+                <div id="task-form-container" class="project-form-container">
+                    <div class="project-form-content">
+                        <h2>Add Tasks</h2>
+                        <div class="divider"></div>
+                        <form id="task-form" action="add_tasks.php" method="post">
+                            <div class="row align-items-start">
+                                <div class="col-md-12"> 
+                                    <label for="choose-project">Choose Project:</label>
+                                    <select id="choose-project" name="project_info" required>
+                                        <option value=""></option>
+                                        <?php
+                                            foreach ($projects as $index => $project) {
+                                                echo "<option value='{$project['project_id']}' data-project-id='{$project['project_id']}'>#{$project['project_id']} - {$project['project_name']}</option>";
+                                            }
+                                        ?>
+                                        <!-- Add more options here -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"> 
+                                    <div class="form-group">
+                                        <label for="task_name">Task Name:</label>
+                                        <input type="text" id="task_name" name="task_name" class="form-control form-control-sm" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label for="task_status">Status:</label>
+                                        <select name="status" id="task_status" class="form-control form-control-sm" required>
+                                            <?php
+                                                $stat = array("Pending","Started","On-Progress","On-Hold","Over Due","Done");
+                                                foreach ($stat as $value) {
+                                                    echo "<option value=\"$value\">$value</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label for="priority">Priority:</label>
+                                        <select name="priority" id="priority" class="form-control form-control-sm" required>
+                                            <?php
+                                                $prio = array("High","Medium","Low");
+                                                foreach ($prio as $p_value) {
+                                                    echo "<option value=\"$p_value\">$p_value</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label for="task_deadline">Choose Deadline:</label>
+                                        <input type="date" id="task_deadline" name="end_date" class="form-control form-control-sm" required>
+                                    </div>           
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="task_emp_select" class="control-label">Team Members:</label>
+                                        <select name="emp_select" id="task_emp_select" onchange="updateSelectedEmployee()">
+                                            <option value=""></option>
+                                            <?php
+                                            $emp_sql = "SELECT DISTINCT employee.emp_id, employee.first_name, employee.last_name, COUNT(assigns.task_id) AS num_assignments 
+                                            FROM employee 
+                                            LEFT JOIN assigns ON employee.emp_id = assigns.emp_id 
+                                            WHERE job_role = 'employee' AND is_reg = 'Y' 
+                                            GROUP BY employee.emp_id, employee.first_name, employee.last_name";
+
+                                            $emp_result = $con->query($emp_sql);
+
+
+                                            if ($emp_result->num_rows > 0) {
+                                                // Fetch each row of the result as an associative array and store it in $projects
+                                                while($emp_row = $emp_result->fetch_assoc()) {
+                                                    $e_fullname = $emp_row['first_name'].' '. $emp_row['last_name'];
+                                                    $emp_id = $emp_row['emp_id'];
+                                                    $e_disabled = $emp_row['num_assignments'] >= 1 ? "disabled" : ""; // Check if employee has at least 1 assignments
+                                                    echo "<option value=\"" . htmlspecialchars($e_fullname) . "\" data-emp-id=\"$emp_id\" $e_disabled>" . htmlspecialchars($e_fullname) . "</option>";
+                                                }
+                                            } else {
+                                                echo "<option class='form-error'>No Results</p>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="task_project_id" name="project_id"> 
+                            <input type="hidden" id="task_manager_id" name="manager_id" value="<?php echo $memberID; ?>">
+                            <input type="hidden" id="selectedEmployee" name="employee_id">                        
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="create-button btn">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <!--Description page-->
                 <div class="description-container" id="description-container">
                     <div class="description-content">
@@ -302,6 +412,16 @@ require_once 'delete_project.php';
             $('#edit_start_date').val(startDate);
             $('#edit_end_date').val(endDate);
             $('#edit_description').val(description);
+        });
+    });
+
+    $(document).ready(function () {
+        $('#choose-project').change(function () {
+            var projectSelected = $(this).find('option:selected');
+            
+            var projectID = projectSelected.attr('data-project-id');
+
+            $('#task_project_id').val(projectID);
         });
     });
     
@@ -346,8 +466,30 @@ require_once 'delete_project.php';
             }
         });
 
+        const createTaskButton = document.getElementById("create-task-button");
+        const taskFormContainer = document.getElementById("task-form-container");
+
+        createTaskButton.addEventListener("click", () => {
+            taskFormContainer.style.display = "flex";
+            shadow_effect.style.display = "flex"; 
+        });
+
+        taskFormContainer.addEventListener("click", (e) => {
+            if (e.target === taskFormContainer) {
+                taskFormContainer.style.display = "none";
+                shadow_effect.style.display = "none";
+            }
+        });
     });
 
+    function updateSelectedEmployee(){
+        var select = document.getElementById("task_emp_select");
+        var selectedEmployee = select.options[select.selectedIndex];
+        var empId = selectedEmployee.dataset.empId;
+
+        document.getElementById("selectedEmployee").value = empId;
+    }
+    
    
     
     const shadow_effect = document.getElementById("shadow-effect");
