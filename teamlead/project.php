@@ -4,6 +4,7 @@ $memberID = check_login();
 require_once '../includes/dbh.php';
 require_once 'edit_project.php';
 require_once 'delete_project.php';
+require_once 'add_tasks.php';
 ?>
 
 <!DOCTYPE html>
