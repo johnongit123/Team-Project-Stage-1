@@ -217,6 +217,7 @@ body{
 
 /*---Project and Threads---*/
 
+.create-task-button,
 .create-thread-button,
 .create-project-button,
 .edit-project-button,
@@ -225,6 +226,7 @@ body{
     margin-left: 10px;
 }
 
+.create-task-button button,
 .create-thread-button button,
 .create-project-button button,
 .edit-project-button button,
@@ -241,7 +243,7 @@ body{
     transition: background-color 0.3s ease;
 }
 
-
+.create-task-button button:hover,
 .create-thread-button button:hover,
 .create-project-button button:hover,
 .edit-project-button button:hover,
