@@ -217,6 +217,7 @@ body{
 
 /*---Project and Threads---*/
 
+.completion-btn,
 .create-task-button,
 .create-thread-button,
 .create-project-button,
@@ -226,6 +227,7 @@ body{
     margin-left: 10px;
 }
 
+.completion-btn button,
 .create-task-button button,
 .create-thread-button button,
 .create-project-button button,
@@ -243,6 +245,7 @@ body{
     transition: background-color 0.3s ease;
 }
 
+.completion-btn button:hover,
 .create-task-button button:hover,
 .create-thread-button button:hover,
 .create-project-button button:hover,
