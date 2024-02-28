@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="toDoList.css">
+
+    <!--Montserrat font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <!--Material icons -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Header -->
+    
+        <!-- End Header -->
+
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">inventory</span> Productivity
+                </div>
+            </div>
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item" onclick="showDashboard()">
+                    <a href="#"  >
+                        <span class="material-symbols-outlined">DASHBOARD</span>   Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item" onclick="showMyTasks()">
+                    <a href="#" >
+                        <span class="material-icons-outlined">task</span> To Do List
+                    </a>
+                </li>
+                <li class="sidebar-list-item" onclick="showProjects()">
+                    <a href="#" >
+                        <span class="material-icons-outlined">group_work</span> Project Tasks
+                    </a>
+                </li>
+                <!---
+                <li class="sidebar-list-item" onclick="showTeamMembers()">
+                    <a href="#">
+                        <span class="material-icons-outlined">group</span> Team 
+                    </a>
+                </li>-->
+            
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        
+
+        <!-- Start Of My Tasks Content Display -->
+            <div id="myTasksContent" style="display: none;">
+                <main class="main-container">
+                    <div class="main-title">
+                        <p class="font-weight-bold"></p>
+                    </div>
+                
+                    <div class="task-card ">
+                        <div class="task-header">
+                            <p class="task-card-title"> Personal To Do List</p>
+                            <div class="add-task-button">
+                                <button id="add-task-button" class="add-task-button">Add Task</button>
+                            </div>
+                        </div>
+                        <div id="task-chart" class="task-chart">
+                       
+                        
+                        </div>
+                        <div id="task-form-container" class="task-form-container">
+                            <div class="task-form" >
+                                <h2>Add Task</h2>
+                                <form id="task-form">
+                                    <input type="text" name="task_name" class="task-input" placeholder="Task Name" required>
+                                    <input type="date" name="due_date" class="due-date-input" placeholder="Due Date" required> 
+                                    <button type="submit" class="task-submit">Submit</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        <!-- End Of My Tasks Content Display -->
+    
+
+    </div>
+    <script src="toDoList.js"></script>
+</body>
+</html>

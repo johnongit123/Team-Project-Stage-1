@@ -1,0 +1,654 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #e6e8ed;
+    color: #666666;
+    font-family: "Montserrat", sans-serif;
+}
+.material-icons-outlined {
+    vertical-align: middle;
+    line-height: 1px;
+}
+
+
+.font-weight-bold {
+    font-weight: 600;
+}
+/*
+.grid-container{
+    display: grid;
+    grid-template-columns: 260px 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas: "sidebar header header header"
+    "sidebar main main main";
+    width: 100%;
+    height: 100vh;
+}*/
+.grid-container {
+    display: grid;
+    grid-template-columns: 260px auto; /* This will give the remaining space to the main content */
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar main";
+    height: 100vh;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    grid-area: header;
+    height: 70px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px 0 30px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+}
+
+  
+  .menu-icon {
+    display: none;
+  }
+/* ---------- END HEADER ---------- */
+
+
+/* ---------- SIDEBAR ---------- */
+
+#sidebar {
+    grid-area: sidebar;
+    height: 100%;
+    background-color: #21232d;
+    color: #9799ab;
+    overflow-y: auto;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  .sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 20px 20px;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar-title > span {
+    display: none;
+  }
+  
+  .sidebar-brand {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  .sidebar-list {
+    padding: 0;
+    margin-top: 15px;
+    list-style-type: none;
+  }
+  
+  .sidebar-list-item {
+    padding: 20px 20px 20px 20px;
+  }
+  
+  .sidebar-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+  
+  .sidebar-list-item > a {
+    text-decoration: none;
+    color: #9799ab;
+  }
+/* ----------END SIDEBAR ---------- */
+
+
+/* ---------- MAIN DASHBOARD---------- */
+.main-container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 50px 20px;
+}
+.main-title {
+    display: flex;
+    justify-content: space-between;
+    color: #383858;
+}
+
+    .main-title > p {
+        font-size: 20px;
+    }
+
+
+
+
+.charts-card {
+    background-color: #ffffff;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 30px 25px;
+    box-sizing: border-box;
+    -webkit-column-break-inside: avoid;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+}
+.charts-card:hover {
+    box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.8); 
+    cursor: pointer;
+}
+
+.chart-title {
+    display: flex;
+    align-items: flex;
+    justify-content: flex-start;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    color: #383858;
+}
+
+
+
+.task-card {
+    background-color: #ffffff;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 30px 25px;
+    box-sizing: border-box;
+    -webkit-column-break-inside: avoid;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+}
+.task-card:hover {
+    box-shadow: 0 12px 20px -6px rgba(0, 0, 0, 0.8); 
+    cursor: pointer;
+}
+
+.task-card-title {
+    display: flex;
+    align-items: flex;
+    justify-content: flex-start;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    color: #383858;
+}
+
+
+.task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.task-item p{
+    padding-left: 20px;
+}
+.complete-task-button {
+    border: 2px solid #9799ab; /* Default border color */
+    border-radius: 50%; /* Make it round */
+    width: 20px; /* Size of the button */
+    height: 20px; /* Size of the button */
+    background-color: #ffffff; /* Background color */
+    cursor: pointer;
+    outline: none;
+    margin-right: 5px; /* Add some space between the button and the task text */
+    transition: border-color 0.3s; /* Smooth transition for color change */
+}
+
+.complete-task-button.completed {
+    background-color: #006400; /* Dark green background for completed tasks */
+    border-color: #006400; /* Optional: Change the border color to match the background */
+}
+
+.complete-task-button:hover {
+    border-color: #004d00; /* An even darker green color for hover state */
+    background-color: #e6ffe6; /* Optional: a very light green background for hover state */
+}
+
+
+.task-text.completed {
+    text-decoration: line-through; /* Adds a line through the task text */
+    color: #707070; /* Optional: change the color to indicate the task is completed */
+}
+
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-text {
+    flex-grow: 1;
+    margin-left: 10px; /* Add space between the button and the text */
+}
+
+.due-date {
+    margin-right: 10px; /* Space before the dropdown */
+}
+
+
+
+
+.material-symbols-outlined {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+
+.divider {
+    border-top: 1px solid #d2d2d3; 
+    margin: 10px 0; 
+    
+}
+
+.project-chart {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.project-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for shadow and transform */
+}
+
+.project-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to create depth */
+    transform: translateY(-5px); /* Slightly raise the item */
+}
+.task-info-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+.task-info {
+    background-color: #fff; /* Background color for the form */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    color: #383858;
+}
+
+
+.material-symbols-outlined {
+    font-size: 24px;
+    margin-right: 10px;
+}
+.chart-width{
+    width: 100%;
+    grid-area: main;
+}
+
+/* ---------- END MAIN DASHBAORD---------- */
+
+/*------MAIN TASKS DASHBAORD------*/
+.add-task-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Add some space from the chart */
+}
+
+.add-task-button button {
+    background-color:  #21232d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.add-task-button button:hover {
+    background-color:  #16171d; /* Change color on hover */
+}
+.delete-task-button{
+    display: flex;
+    justify-content: flex-end;
+    background-color:  #FF0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+
+}
+.delete-task-button:hover {
+    background-color:  #16171d; /* Change color on hover */
+}
+.task-form-container {
+    display: none; /* Initial state is not visible */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.task-form {
+    background-color: #fff; /* Background color for the form */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    color: #383858;
+}
+.task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for shadow and transform */
+}
+.task-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to create depth */
+    transform: translateY(-5px); /* Slightly raise the item */
+}
+
+/* Style the form input and button */
+.task-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.task-submit {
+    background-color: #21232d; /* Button color */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.due-date-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+/*------END MAIN TASKS DASHBAORD------*/
+
+/*------MAIN PROJECT DASHBAORD------*/
+#project-design p{
+    font-weight: bolder;
+    text-decoration: underline;
+
+}
+#project-image {
+    display: inline-block; /* Make it an inline element */
+    width: 25px; /* Set the width to your desired size */
+    height: 25px; /* Set the height to your desired size */
+    margin-right: 10px; /* Add some spacing to separate the image from the text */
+    border-radius: 50%; /* For circular images, use 50% for border-radius */
+}
+.assign-task-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Add some space from the chart */
+}
+
+.assign-task-button button {
+    background-color:  #21232d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.assign-task-button button:hover {
+    background-color:  #16171d; /* Change color on hover */
+}
+
+.assign-form-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.assign-form {
+    background-color: #fff; /* Background color for the form */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    color: #383858;
+}
+
+/* Style the form input and button */
+.assign-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.assign-submit {
+    background-color: #21232d; /* Button color */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*------END MAIN PROJECT DASHBAORD------*/
+.message-input p {
+    border: 1px #d2d2d3 solid;
+    padding: 10px;
+    margin-top: 30px;
+    border-radius: 33px;
+}
+.message-input button{
+    background-color: #21232d; /* Button color */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.project-add-form,
+.projects-table {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.project-add-form h2,
+.projects-table table {
+    margin-bottom: 20px;
+}
+
+.project-add-form form,
+.projects-table table {
+    width: 100%;
+}
+
+.project-add-form input[type="text"],
+.project-add-form input[type="date"],
+.project-add-form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.project-add-form .form-submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.project-add-form .form-submit-btn:hover {
+    background-color: #45a049;
+}
+
+.projects-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.projects-table th,
+.projects-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.projects-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+/* Style the dropdown button */
+.dropbtn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.assign-employees-container {
+    display: none; /* Initial state is not visible */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+.assign-available-employees{
+    background-color: #fff; 
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    
+}
+.availabel-managers-table h3{
+    color: #383858;
+}
+.availabel-managers-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.availabel-managers-table th,
+.availabel-managers-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.availabel-managers-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.availabel-members-table h3{
+    color: #383858;
+}
+.availabel-members-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.availabel-members-table th,
+.availabel-members-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.availabel-members-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.btn-assign {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
