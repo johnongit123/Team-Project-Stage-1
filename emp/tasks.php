@@ -109,6 +109,7 @@ require_once '../includes/dbh.php';
                             <col width="10%">
                             <col width="15%">
                             <col width="10%">
+                            <col width="10%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -120,6 +121,7 @@ require_once '../includes/dbh.php';
                                 <th>Priority</th>
                                 <th>Manager</th>
                                 <th>Project</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="project-tdbody">
@@ -156,7 +158,8 @@ require_once '../includes/dbh.php';
                                     echo "<td>" . $task['status'] . "</td>";               
                                     echo "<td>" . $task['priority'] . "</td>";
                                     echo "<td>" . ($task['manager_name'] ? $task['manager_name'] : '-') . "</td>";
-                                    echo "<td>" . $task['project_id'] . "</td>"; 
+                                    echo "<td>" . $task['project_id'] . "</td>";
+                                    echo '<td> <button id="task-completed-btn" class="completion-btn" data-task-id="' . $task['task_id'] . '">Task Completed</button> </td>';
                                     echo "</tr>";
                                 }
                             } else {
@@ -231,6 +234,41 @@ require_once '../includes/dbh.php';
             copyButton.classList.remove("copied");
         }, 4000);
     }
+
+     // Select the button with the id 'task-completed-btn'
+    var taskCompletedButton = document.getElementById('task-completed-btn');
+
+    // Attach a click event listener to the button
+    taskCompletedButton.addEventListener('click', function() {
+        // Retrieve the task ID from the 'data-task-id' attribute
+        var taskId = this.getAttribute('data-task-id');
+        
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        
+        // Define the PHP file URL and parameters
+        var url = 'process_task.php';
+        var params = 'task_id=' + taskId;
+    
+
+        // Configure the request
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        // Define the callback function
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                // Handle the response from the PHP file
+                console.log(xhr.responseText);
+                location.reload();
+                alert("Well Done For Completing Task");
+                // You can perform additional actions based on the response
+            }
+        };
+
+        // Send the request
+        xhr.send(params);
+    });
 
 </script>
 </body>
