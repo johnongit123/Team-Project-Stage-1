@@ -123,6 +123,7 @@ require_once 'remove_employee_from_project.php';
                             <col width="10%">
                             <col width="10%">
                             <col width="10%">
+			    <col width="10%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -134,6 +135,7 @@ require_once 'remove_employee_from_project.php';
                                 <th>Duration</th>
                                 <th>Status</th>
                                 <th>Actions</th>
+				<th>Progress</th>
                             </tr>
                         </thead>
                         <tbody id="project-tdbody">
@@ -184,7 +186,7 @@ require_once 'remove_employee_from_project.php';
                                         </ul>
                                     </div>
                                 </td>";
-
+				echo "<td> <progress class = 'progressBar' max='100' value='{$progressValue}' data-project-id='{$project['project_id']}'></progress> </td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -557,12 +559,48 @@ require_once 'remove_employee_from_project.php';
             $('#edit_description').val(description);
         });
     });
+ function getanswer() {
+    fetch('update_progress.php')
+    .then(response => response.json())
+    .then(data => {
+	if (data.status === 'success') {
+	    // Access the percentage completed from the JSON response
+	    const percentageCompleted = data.percentage_completed;
+	    
+	    // Use the percentage completed as needed
+	    console.log('Percentage completed: ' + percentageCompleted);
+	} else {
+	    // Handle error case
+	    console.error('Error: ' + data.message);
+	}
+    })
+    .catch(error => {
+	console.error('Error fetching data:', error);
+    });
+ }
 
     
 
     document.addEventListener("DOMContentLoaded", function () {
         //invite to register popup script
         document.getElementById('invite-link').addEventListener('click', openPopup);
+
+	document.querySelectorAll('.progressBar').forEach((item) => {
+	    const projectId = item.getAttribute('data-project-id');
+	    var xhr = new XMLHttpRequest();
+	    var url = 'update_progress.php';
+	    var params = 'project_id=' + projectId;
+	
+	    xhr.open('POST', url, true);
+	    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	    xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+		    console.log(xhr.responseText); // Log the response when the request is complete
+		}
+	    };
+	    xhr.send(params);
+	}
 
         //description button scripts
         const descriptionData = <?php echo json_encode($projects); ?>;
