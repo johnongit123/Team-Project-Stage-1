@@ -258,9 +258,10 @@ body{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
     border-radius: 5px;
     padding: 10px 20px;
+    margin-left: 5px;
     cursor: pointer;
 }
 
