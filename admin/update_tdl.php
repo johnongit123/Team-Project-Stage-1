@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['emp_id'])) {
 
         // Update task status to 'complete' in the database
         update_td_task_status($taskId, $empId);
-        header("Location: tasks.php");
+        header("Location: project.php");
         die();
     } catch(Exception $e) {
         die("Query failed: " . $e->getMessage());
