@@ -227,8 +227,6 @@ body{
     color: red;
 }
 
-
-
 .sub-text{
     font-weight: 200;
     margin-top: -10px;
@@ -262,16 +260,13 @@ body{
     border-radius: 5px;
     padding: 10px 20px;
     margin: 4px 2px;
-    margin-left: 5px;
+    margin-right: 10px;
     cursor: pointer;
 }
 
 .task-completed-button:hover{
-    background-color: #45a049;
-    
+    background-color: #45a049;  
 }
-
-
 
 .create-task-button,
 .create-thread-button,
