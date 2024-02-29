@@ -600,7 +600,7 @@ require_once 'remove_employee_from_project.php';
 		}
 	    };
 	    xhr.send(params);
-	}
+	});
 
         //description button scripts
         const descriptionData = <?php echo json_encode($projects); ?>;
