@@ -524,7 +524,70 @@ require_once 'new_td_task.php';
                         </form>                    
                     </div>                
                 </div>
-            </div>                              
+            </div>
+	    <div class="charts-card">
+                <!--Card header portion-->
+                <div class="chart-header">
+                    <p class="chart-title">TO DO LIST</p>
+                    <div class="add-task-button">
+                        <button id="add-task-button" class="add-task-button">Add Task</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <?php
+                    success_tdtask();
+                    check_tdtask_errors();
+                ?>
+                <div id="task-chart" class="task-chart">
+                <?php
+                $sql2 = "SELECT * FROM tdl WHERE emp_id = ? ORDER BY due_date DESC";
+                if ($stmt2 = $con->prepare($sql2)) {
+                    $stmt2->bind_param("i", $memberID);
+                    $stmt2->execute();
+                    $result2 = $stmt2->get_result();
+
+                    if ($result2->num_rows > 0) {
+                        // Output data of each row
+                        while ($row = $result2->fetch_assoc()) {
+                            $taskStatusClass = ($row["status"] == 'Completed') ? 'completed' : ''; // Check if status is Completed
+
+                            echo "<div class='task-item $taskStatusClass' data-task-id='{$row['tdl_id']}'>";
+                            echo "<button class='complete-task-button $taskStatusClass' data-task-id='{$row['tdl_id']}' name='complete_task'></button>";                            
+                            echo "<p class='task-text $taskStatusClass'>" . $row["tdl_name"] . "</p>";
+                            echo "<span class='deadline'>Due on: " . $row["due_date"] . "</span>";
+                            echo "<button type='submit' class='delete-task-button' data-task-id='{$row['tdl_id']}' name='delete_task'>Delete</button>";
+                            echo "</div>";
+                            echo "<div class='divider'></div>";
+                        }
+                    }
+                    $stmt2->close();
+                } else {
+                    echo "<p>Error fetching tasks: " . $con->error . "</p>";
+                }
+                ?>
+                </div>
+                <div id="task-form-container" class="project-form-container">
+                    <div class="project-form-content" >
+                        <h2>Add Task</h2>
+                        <div class="divider"></div>
+                        <form id="task-form" action="new_td_task.php" method="post">
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <input type="text" name="task_name" class="task-input" placeholder="Task Name" required>
+                                </div>
+                                <div class="col-md-6"> 
+                                    <input type="date" name="due_date" class="due-date-input" placeholder="Due Date" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="task-submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
