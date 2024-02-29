@@ -585,7 +585,7 @@ require_once 'remove_employee_from_project.php';
         //invite to register popup script
         document.getElementById('invite-link').addEventListener('click', openPopup);
 
-	document.querySelectorAll('.progressBar').forEach((item)) => {
+	document.querySelectorAll('.progressBar').forEach(item => {
 	    const projectId = item.getAttribute('data-project-id');
 	    var xhr = new XMLHttpRequest();
 	    var url = 'update_progress.php';
