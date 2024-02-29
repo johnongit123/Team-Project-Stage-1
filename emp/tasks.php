@@ -159,7 +159,7 @@ require_once '../includes/dbh.php';
                                     echo "<td>" . $task['priority'] . "</td>";
                                     echo "<td>" . ($task['manager_name'] ? $task['manager_name'] : '-') . "</td>";
                                     echo "<td>" . $task['project_id'] . "</td>";
-                                    echo '<td> <button id="task-completed-btn" class="completion-btn" data-task-id="' . $task['task_id'] . '">Task Completed</button> </td>';
+                                    echo '<td> <button id="task-completed-btn" class="task-completed-button" data-task-id="' . $task['task_id'] . '">Task Completed</button> </td>';
                                     echo "</tr>";
                                 }
                             } else {
