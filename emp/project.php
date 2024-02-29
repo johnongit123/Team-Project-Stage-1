@@ -95,7 +95,7 @@ require_once '../includes/dbh.php';
             <div class="charts-card">
                 <!--Card header portion-->
                 <div class="chart-header">
-                    <p class="chart-title">PROJECTS LIST</p>
+                    <p class="chart-title">PROJECT OVERVIEW</p>
                 </div>
                 <div class="divider"></div>
                 <div class="emp-chart-list">  
