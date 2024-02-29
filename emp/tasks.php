@@ -91,7 +91,7 @@ require_once 'new_td_task.php';
         <div class="main-title">
             <p class="font-weight-bold">EMPLOYEE VIEW</p>
         </div>
-        <div class="charts single-view big-chart">
+        <div class="charts single-view">
             <div class="charts-card">
                 <!--Card header portion-->
                 <div class="chart-header">
