@@ -735,6 +735,25 @@ require_once 'new_td_task.php';
                 shadow_effect.style.display = "none";
             }
         });
+
+	     //add todolist button scripts
+        const addTdTaskButton = document.getElementById("add-task-button");
+        const tdTaskFormContainer = document.getElementById("task-form-container");
+
+        addTdTaskButton.addEventListener("click", () => {
+            tdTaskFormContainer.style.display = "flex";
+            shadow_effect.style.display = "flex"; 
+        });
+
+        tdTaskFormContainer.addEventListener("click", (e) => {
+            if (e.target === tdTaskFormContainer) {
+                tdTaskFormContainer.style.display = "none";
+                shadow_effect.style.display = "none";
+            }
+        });
+        
+        attachCompleteButtonListeners();
+        attachDeleteButtonListeners();
     });
 
     function updateSelectedManager() {
@@ -816,6 +835,86 @@ require_once 'new_td_task.php';
             copyButton.textContent = "Copy";
             copyButton.classList.remove("copied");
         }, 4000);
+    }
+
+    function attachCompleteButtonListeners() {
+        var completeButtons = document.querySelectorAll('.complete-task-button');
+        
+        completeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Toggle the 'completed' class on the button to change its appearance
+                this.classList.toggle('completed');
+    
+                // If the button is inside a task item, you can toggle the task text class as well
+                var taskText = this.nextElementSibling;
+                if (taskText && taskText.classList.contains('task-text')) {
+                    taskText.classList.toggle('completed');
+                }
+    
+                // Optionally, send an update to the server to change the task status in the database
+                // You would need the task ID and the new status ("completed" or "not completed")
+                var tdTaskId = this.getAttribute('data-task-id'); // Ensure you have 'data-task-id' attribute on the button
+                var newStatus = this.classList.contains('completed') ? 'Completed' : 'In Progress';
+                console.log(`Updating task ${tdTaskId} to ${newStatus}`);
+                
+                fetch('update_tdtask_status.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `task_id=${tdTaskId}&status=${newStatus}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        console.log('Task status updated successfully.');
+                    } else {
+                        console.error('Failed to update task status:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });  
+            });
+        });
+    }
+
+
+
+    function attachDeleteButtonListeners() {
+        const deleteButtons = document.querySelectorAll('.delete-task-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tdTaskId = this.getAttribute('data-task-id');
+                if (confirm('Are you sure you want to delete this task?')) {
+                    deleteTask(tdTaskId);
+                }
+            });
+        });
+    }
+
+    function deleteTask(tdTaskId) {
+        fetch('delete_td_task.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `tdl_id=${tdTaskId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Task deleted successfully.');
+                // Find the task item element and remove it from the DOM
+                const taskItem = document.querySelector(`.task-item[data-task-id="${tdTaskId}"]`);
+                if (taskItem) {
+                    taskItem.remove();
+                }
+            } else {
+                console.error('Failed to delete task:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
 
