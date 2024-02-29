@@ -2,6 +2,7 @@
 require_once '../includes/session-config.php';
 $memberID = check_login();
 require_once '../includes/dbh.php';
+require_once 'new_td_task.php';
 ?>
 
 <!DOCTYPE html>
