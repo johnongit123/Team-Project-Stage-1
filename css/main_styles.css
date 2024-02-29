@@ -196,6 +196,39 @@ body{
     color: #26b82d;
 }
 
+.bold{
+    font-weight: bold;
+}
+
+.project-details {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.project-details p {
+    margin: 5px 0;
+}
+
+.project-details .desc-title{
+    margin-top: 10px;
+}
+
+.project-details .desc {
+    margin-bottom: 10px;
+}
+
+.project-details .due-date{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.red {
+    color: red;
+}
+
+
+
 .sub-text{
     font-weight: 200;
     margin-top: -10px;
