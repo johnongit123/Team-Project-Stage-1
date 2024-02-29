@@ -98,96 +98,66 @@ require_once '../includes/dbh.php';
                     <p class="chart-title">PROJECTS LIST</p>
                 </div>
                 <div class="divider"></div>
-                <div class="chart-list">
-                    <!--Table contents-->   
-                    <table class="table table-hover">
-                        <colgroup>
-                            <col width="5%">
-                            <col width="5%">
-                            <col width="30%">
-                            <col width="15%">
-                            <col width="15%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>ID</th>
-                                <th>Project</th>
-                                <th>Date Started</th>
-                                <th>Due Date</th>
-                                <th>Duration</th>
-                                <th>Status</th>
-                                <th>Manager</th>
-                            </tr>
-                        </thead>
-                        <tbody id="project-tdbody">
-                            <!--All the project tables-->    
-                            <?php
-                            $sql = "SELECT project.*
-                            FROM project
-                            INNER JOIN assigns ON project.project_id = assigns.project_id
-                            INNER JOIN employee ON assigns.emp_id = employee.emp_id
-                            WHERE employee.emp_id = ?
-                            ORDER BY project.end_date";                            
-                            if ($stmt = $con->prepare($sql)) {
-                                $stmt->bind_param("i", $memberID);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
+                <div class="emp-chart-list">  
+                    <?php
+                    $sql = "SELECT project.*
+                    FROM project
+                    INNER JOIN assigns ON project.project_id = assigns.project_id
+                    INNER JOIN employee ON assigns.emp_id = employee.emp_id
+                    WHERE employee.emp_id = ?
+                    ORDER BY project.end_date";                            
+                    if ($stmt = $con->prepare($sql)) {
+                        $stmt->bind_param("i", $memberID);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
 
-                                $projects = [];
+                        $projects = [];
 
-                                if ($result->num_rows > 0) {
-                                    // Fetch each row of the result as an associative array and store it in $projects
-                                    while($row = $result->fetch_assoc()) {
-                                        $projects[] = $row;
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='7'><p class='form-error' style='margin-top: 10px;'>No Projects have been assigned</p></td></tr>";
-                                }
-                                
-                                foreach ($projects as $index => $project) {
-                                    echo "<tr>";
-                                    echo "<td>" . ($index + 1) . "</td>";
-                                    echo "<td>" . $project['project_id'] . "</td>";
-                                    echo "<td><p class='proj_name'>" . $project['project_name'] . "</p>
-                                    <p class='sub-text'>" . (str_word_count($project['description']) > 10 ? implode(' ', array_slice(str_word_count($project['description'], 1), 0, 10)) . "..." : $project['description']) . "</p>
-                                    </td>";
-                                    echo "<td>" . $project['start_date'] . "</td>";
-                                    echo "<td>" . $project['end_date'] . "</td>";
-                                    // Calculate duration
-                                    $dueDate = strtotime($project['end_date']);
-                                    $currentDate = time();
-                                    $duration = $dueDate - $currentDate;
-                                    $daysLeft = floor($duration / (60 * 60 * 24));
-
-                                    // Display duration with appropriate color
-                                    if ($daysLeft == 0) {
-                                        echo "<td style='color: red;'>0</td>";
-                                    } else {
-                                        echo "<td>$daysLeft day(s)</td>";
-                                    }
-                                    echo "<td>" . $project['status'] . "</td>";
-                                    echo "<td>" . ($project['manager_name'] ? $project['manager_name'] : '-') . "</td>"; 
-                                    echo "</tr>";
-                                }
-                            } else {
-                                // Handle errors if needed
-                                echo "Error: " . $con->error;
+                        if ($result->num_rows > 0) {
+                            // Fetch each row of the result as an associative array and store it in $projects
+                            while($row = $result->fetch_assoc()) {
+                                $projects[] = $row;
                             }
+                        } else {
+                            echo "<p class='form-error' style='margin-top: 10px;'>No Projects have been assigned</p>";
+                        }
+                        
+                        foreach ($projects as $index => $project) {
                             ?>
-                        </tbody>
-                    </table>
-                </div>
-                
-                
-                <!--Description page-->
-                <div class="description-container" id="description-container">
-                    <div class="description-content">
-                        <p id="description-text"></p>
-                    </div>
+                            <div class="project-details">
+                                <p class="bold">You have been assigned to:</p>
+                                <p><?php echo $project['project_name'] . " (#" . $project['project_id'] . ")"; ?></p>
+                            
+                                <p class="bold">Your Manager:</p>
+                                <p><?php echo ($project['manager_name'] ? $project['manager_name'] : '-'); ?></p>
+
+                                <p class="bold desc-title">Project Description:</p>
+                                <p class="desc"><?php echo $project['description']; ?></p>
+
+                                <?php
+                                // Calculate and display project deadline
+                                $dueDate = strtotime($project['end_date']);
+                                $currentDate = time();
+                                $duration = $dueDate - $currentDate;
+                                $daysLeft = floor($duration / (60 * 60 * 24));
+
+                                if ($daysLeft <= 0) {
+                                    $deadline = "Past Deadline";
+                                    $deadlineClass = "red";
+                                } else {
+                                    $deadline = "$daysLeft day(s)";
+                                    $deadlineClass = "";
+                                }
+                                ?>
+                                <p class="due-date bold">Due: <span class="<?php echo $deadlineClass; ?>"><?php echo $deadline; ?></span></p>
+                            </div>
+                            <?php
+                        }              
+                    } else {
+                        // Handle errors if needed
+                        echo "Error: " . $con->error;
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -201,57 +171,11 @@ require_once '../includes/dbh.php';
     document.addEventListener("DOMContentLoaded", function () {
         //invite to register popup script
         document.getElementById('invite-link').addEventListener('click', openPopup);
-
-        //description button scripts
-        const descriptionData = <?php echo json_encode($projects); ?>;
-
-        const rows = document.querySelectorAll("tbody#project-tdbody tr");
-        rows.forEach(row => {
-            const projectNameElement = row.querySelector('.proj_name');
-            
-            projectNameElement.addEventListener("click", () => {
-                event.stopPropagation(); // ensuring the parent elements arent affected by click
-
-                const projectName = projectNameElement.textContent;
-                const project = descriptionData.find(proj => proj.project_name === projectName);
-                const description = project ? project.description : '';
-
-                const descriptionText = document.getElementById("description-text");
-                descriptionText.innerHTML = `<h2>${projectName}</h2><div class="divider"></div><p>${description}</p>`;
-                
-                openDescription();
-            });
-        });
-        
-        
-
-        
     });
 
    
     
     const shadow_effect = document.getElementById("shadow-effect");
-    const descriptionContainer = document.getElementById("description-container");
-    
-    
-    
-    descriptionContainer.addEventListener("click", (e) => {
-        // If the click is not on the description content, close the description container
-        if (e.target === descriptionContainer) {
-                closeDescription();
-            }
-    });
-
-    function openDescription() {
-        descriptionContainer.style.display = "flex";
-        shadow_effect.style.display = "flex";
-    }
-
-    function closeDescription() {
-        descriptionContainer.style.display = "none";
-        shadow_effect.style.display = "none";
-    }
-
     //Invitation scripts
     // Function to open the popup
 
