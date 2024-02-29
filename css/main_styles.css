@@ -260,7 +260,7 @@ body{
     border-radius: 5px;
     padding: 10px 20px;
     margin: 4px 2px;
-    margin-left: 10px;
+    margin-left: -10px;
     cursor: pointer;
 }
 
