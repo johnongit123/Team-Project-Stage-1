@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["task_exists"] = "This Task already exists!";
         }
 
-        if (check_task_assignment($manager_id) >= 1 || check_task_assignment($employee_id) >= 1){
+        if (check_task_assignment($employee_id) >= 1){
             $errors["on_task"] = "This Person is already on a Task!";
         }
 
