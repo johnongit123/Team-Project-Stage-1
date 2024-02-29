@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['emp_id'])) {
         } else {
             add_td_task($tdlID, $taskName, $dueDate, $empId);
             $_SESSION["success_tdtasks"] = "Task has been added successfully!";
-            header("Location: tasks.php");
+            header("Location: project.php");
             die();
         }
 
