@@ -7,6 +7,7 @@ require_once 'edit_project.php';
 require_once 'delete_project.php';
 require_once 'assign_employee_project.php';
 require_once 'remove_employee_from_project.php';
+require_once 'new_td_task.php';
 ?>
 
 <!DOCTYPE html>
