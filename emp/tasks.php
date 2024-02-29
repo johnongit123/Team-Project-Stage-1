@@ -171,6 +171,69 @@ require_once '../includes/dbh.php';
                     </table>
                 </div>
             </div>
+            <div class="charts-card">
+                <!--Card header portion-->
+                <div class="chart-header">
+                    <p class="chart-title">TO DO LIST</p>
+                    <div class="add-task-button">
+                        <button id="add-task-button" class="add-task-button">Add Task</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <?php
+                    success_tdtask();
+                    check_tdtask_errors();
+                ?>
+                <div id="task-chart" class="task-chart">
+                <?php
+                $sql2 = "SELECT * FROM tdl WHERE emp_id = ? ORDER BY due_date DESC";
+                if ($stmt2 = $con->prepare($sql2)) {
+                    $stmt2->bind_param("i", $memberID);
+                    $stmt2->execute();
+                    $result2 = $stmt2->get_result();
+
+                    if ($result2->num_rows > 0) {
+                        // Output data of each row
+                        while ($row = $result2->fetch_assoc()) {
+                            $taskStatusClass = ($row["status"] == 'Completed') ? 'completed' : ''; // Check if status is Completed
+
+                            echo "<div class='task-item $taskStatusClass' data-task-id='{$row['tdl_id']}'>";
+                            echo "<button class='complete-task-button $taskStatusClass' data-task-id='{$row['tdl_id']}' name='complete_task'></button>";                            
+                            echo "<p class='task-text $taskStatusClass'>" . $row["tdl_name"] . "</p>";
+                            echo "<span class='deadline'>Due on: " . $row["due_date"] . "</span>";
+                            echo "<button type='submit' class='delete-task-button' data-task-id='{$row['tdl_id']}' name='delete_task'>Delete</button>";
+                            echo "</div>";
+                            echo "<div class='divider'></div>";
+                        }
+                    }
+                    $stmt2->close();
+                } else {
+                    echo "<p>Error fetching tasks: " . $con->error . "</p>";
+                }
+                ?>
+                </div>
+                <div id="task-form-container" class="project-form-container">
+                    <div class="project-form-content" >
+                        <h2>Add Task</h2>
+                        <div class="divider"></div>
+                        <form id="task-form" action="new_td_task.php" method="post">
+                            <div class="row">
+                                <div class="col-md-6"> 
+                                    <input type="text" name="task_name" class="task-input" placeholder="Task Name" required>
+                                </div>
+                                <div class="col-md-6"> 
+                                    <input type="date" name="due_date" class="due-date-input" placeholder="Due Date" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="task-submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>     
     </main>
 
@@ -182,6 +245,25 @@ require_once '../includes/dbh.php';
 
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('invite-link').addEventListener('click', openPopup);
+
+        //add todolist button scripts
+        const addTdTaskButton = document.getElementById("add-task-button");
+        const tdTaskFormContainer = document.getElementById("task-form-container");
+
+        addTdTaskButton.addEventListener("click", () => {
+            tdTaskFormContainer.style.display = "flex";
+            shadow_effect.style.display = "flex"; 
+        });
+
+        tdTaskFormContainer.addEventListener("click", (e) => {
+            if (e.target === tdTaskFormContainer) {
+                tdTaskFormContainer.style.display = "none";
+                shadow_effect.style.display = "none";
+            }
+        });
+        
+        attachCompleteButtonListeners();
+        attachDeleteButtonListeners();
     });
 
     const shadow_effect = document.getElementById("shadow-effect");
@@ -269,6 +351,86 @@ require_once '../includes/dbh.php';
         // Send the request
         xhr.send(params);
     });
+
+    function attachCompleteButtonListeners() {
+        var completeButtons = document.querySelectorAll('.complete-task-button');
+        
+        completeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Toggle the 'completed' class on the button to change its appearance
+                this.classList.toggle('completed');
+    
+                // If the button is inside a task item, you can toggle the task text class as well
+                var taskText = this.nextElementSibling;
+                if (taskText && taskText.classList.contains('task-text')) {
+                    taskText.classList.toggle('completed');
+                }
+    
+                // Optionally, send an update to the server to change the task status in the database
+                // You would need the task ID and the new status ("completed" or "not completed")
+                var tdTaskId = this.getAttribute('data-task-id'); // Ensure you have 'data-task-id' attribute on the button
+                var newStatus = this.classList.contains('completed') ? 'Completed' : 'In Progress';
+                console.log(`Updating task ${tdTaskId} to ${newStatus}`);
+                
+                fetch('update_tdtask_status.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `task_id=${tdTaskId}&status=${newStatus}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        console.log('Task status updated successfully.');
+                    } else {
+                        console.error('Failed to update task status:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });  
+            });
+        });
+    }
+
+
+
+    function attachDeleteButtonListeners() {
+        const deleteButtons = document.querySelectorAll('.delete-task-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tdTaskId = this.getAttribute('data-task-id');
+                if (confirm('Are you sure you want to delete this task?')) {
+                    deleteTask(tdTaskId);
+                }
+            });
+        });
+    }
+
+    function deleteTask(tdTaskId) {
+        fetch('delete_td_task.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `tdl_id=${tdTaskId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Task deleted successfully.');
+                // Find the task item element and remove it from the DOM
+                const taskItem = document.querySelector(`.task-item[data-task-id="${tdTaskId}"]`);
+                if (taskItem) {
+                    taskItem.remove();
+                }
+            } else {
+                console.error('Failed to delete task:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 
 </script>
 </body>
