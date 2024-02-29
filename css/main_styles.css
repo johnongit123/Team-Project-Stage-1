@@ -348,9 +348,8 @@ body{
     
 }
 
-.project-form-content .create-button,
-.project-form-content .edit-button,
-.project-form-content .assign-button {
+
+.project-form-content button {
     margin-top: 10px;
     background-color:  #383858;
     color: white;
@@ -363,10 +362,10 @@ body{
 
 
 
-.project-form-content .create-button:hover,
-.project-form-content .edit-button:hover,
-.project-form-content .assign-button:hover {
-    background-color: #255cca; 
+
+.project-form-content button:hover {
+    background-color: #255cca;
+    color: white;
 }
 
 /* Table List design*/
