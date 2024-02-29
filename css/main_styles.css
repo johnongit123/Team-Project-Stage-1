@@ -245,6 +245,83 @@ body{
     transition: var(--transition);
 }
 
+/*to-do-list*/
+
+.task-item {
+    display: flex;
+    align-items: center;
+}
+
+
+.task-item p{
+    padding-left: 20px;
+}
+
+.task-text.completed {
+    text-decoration: line-through; /* Adds a line through the task text */
+    color: #707070; /* Optional: change the color to indicate the task is completed */
+}
+
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-text {
+    flex-grow: 1;
+    margin-left: 10px; /* Add space between the button and the text */
+    padding-top: 15px;
+}
+
+
+.deadline {
+    margin-right: 10px; /* Space before the dropdown */
+    
+}
+
+.complete-task-button {
+    border: 2px solid #9799ab; /* Default border color */
+    border-radius: 50%; /* Make it round */
+    width: 20px; /* Size of the button */
+    height: 20px; /* Size of the button */
+    background-color: #ffffff; /* Background color */
+    cursor: pointer;
+    outline: none;
+    margin-right: 5px; /* Add some space between the button and the task text */
+    transition: border-color 0.3s; /* Smooth transition for color change */
+}
+
+.complete-task-button.completed {
+    background-color: #006400; /* Dark green background for completed tasks */
+    border-color: #006400; /* Optional: Change the border color to match the background */
+}
+
+.complete-task-button:hover {
+    border-color: #004d00; /* An even darker green color for hover state */
+    background-color: #e6ffe6; /* Optional: a very light green background for hover state */
+}
+
+
+.delete-task-button{
+    display: flex;
+    justify-content: flex-end;
+    background-color:  #FF0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+
+}
+.delete-task-button:hover {
+    background-color:  #16171d; /* Change color on hover */
+}
+
 
 /*---Project and Threads---*/
 
@@ -268,6 +345,7 @@ body{
     background-color: #45a049;  
 }
 
+.add-task-button,
 .create-task-button,
 .create-thread-button,
 .create-project-button,
@@ -278,6 +356,7 @@ body{
 }
 
 
+.add-task-button button,
 .create-task-button button,
 .create-thread-button button,
 .create-project-button button,
@@ -295,7 +374,7 @@ body{
     transition: background-color 0.3s ease;
 }
 
-
+.add-task-button button:hover,
 .create-task-button button:hover,
 .create-thread-button button:hover,
 .create-project-button button:hover,
