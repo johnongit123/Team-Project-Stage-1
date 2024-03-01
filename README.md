@@ -23,7 +23,7 @@ This advanced web application is designed for comprehensive task and project man
 
 ## Usage
 
-- **Login:** Use predefined user credentials in the  to log in and interact with the system based on user roles.
+- **Login:** Use predefined user credentials in the login basic info.txt file to log in and interact with the system based on user roles.
 - **Navigating the Application:** Explore different modules like tasks, projects, and threads via the dashboard. Each user role has a tailored dashboard that highlights relevant functionalities and data.
 - **Managing Tasks and Projects:** Admins and team leaders can create new projects/tasks, assign members, and track progress. Employees can view their assigned tasks/projects and update their statuses.
 
